@@ -2,11 +2,13 @@
 
 class ElementDataMainEntity extends MasterEntity {
 
+	_type = 'Element';
+
 	#default get, set for _parentid;
 	#default get, set for _creationdate;
 	#default get, set for _updatedate;
 
-	intialize : function () {
+	initialize : function () {
 		_super();
 
 		this._parentid = undefined;
@@ -16,6 +18,7 @@ class ElementDataMainEntity extends MasterEntity {
 
 	hydrate : function (datas) {
 		_super(datas);
+
 		if (datas.parentid)
 			this.setParentid(datas.parentid);
 		if (datas.creationdate)
