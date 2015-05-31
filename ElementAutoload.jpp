@@ -1,0 +1,9 @@
+#import (Config.path +'/Kernel/Autoload/MasterAutoload') = MasterAutoload;
+
+class ElementAutoload extends MasterAutoload {
+
+	confModuleName = 'Element';
+
+}
+
+#export ElementAutoload;
