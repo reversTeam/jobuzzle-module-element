@@ -1,0 +1,29 @@
+#import (Config.path +'/Kernel/Entity/MasterEntity') = MasterEntity;
+
+class ElementDataMainEntity extends MasterEntity {
+
+	#default get, set for _parentid;
+	#default get, set for _creationdate;
+	#default get, set for _updatedate;
+
+	intialize : function () {
+		_super();
+
+		this._parentid = undefined;
+		this._creationdate = undefined;
+		this._updatedate = undefined;
+	}
+
+	hydrate : function (datas) {
+		_super(datas);
+		if (datas.parentid)
+			this.setParentid(datas.parentid);
+		if (datas.creationdate)
+			this.setCreationdate(datas.creationdate);
+		if (datas.updatedate)
+			this.setUpdatedate(datas.updatedate);
+	}
+
+}
+
+#export ElementDataMainEntity;
