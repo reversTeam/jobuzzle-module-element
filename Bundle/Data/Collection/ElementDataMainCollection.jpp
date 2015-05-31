@@ -9,7 +9,7 @@ class ElementDataMainCollection extends MasterCollection {
 		if (this._protected == undefined) {
 			var protected = _super();
 			this._protected = protected.concat(
-				Config.modules.Element.collections.upload.protected
+				Config.modules.Element.collections.update.protected
 			);
 		}
 		return this._protected;
