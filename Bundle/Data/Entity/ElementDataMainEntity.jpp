@@ -4,12 +4,16 @@ class ElementDataMainEntity extends MasterEntity {
 
 	_type = 'Element';
 
+	_templateTimeline = 'element_data_timeline_template';
+
 	#default get, set for _parentid;
 	#default get, set for _creationdate;
 	#default get, set for _updatedate;
 
 	initialize : function () {
 		_super();
+
+		this.templateTimeline = undefined;
 
 		this._parentid = undefined;
 		this._creationdate = undefined;
@@ -25,6 +29,16 @@ class ElementDataMainEntity extends MasterEntity {
 			this.setCreationdate(datas.creationdate);
 		if (datas.updatedate)
 			this.setUpdatedate(datas.updatedate);
+	}
+
+	displayTimeline : function () {
+		var templateManager = serviceLocator.get('TemplateManager');
+		if (this.templateTimeline == undefined) {
+			var template = templateManager.get(this._templateTimeline);
+			template.setEntity(this);
+			this.templateTimeline = React['createElement'](template.getView(), null);
+		}
+		return this.templateTimeline;
 	}
 
 }
