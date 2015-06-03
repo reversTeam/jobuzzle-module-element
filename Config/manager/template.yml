@@ -1,0 +1,4 @@
+invokables :
+	element_data_timeline_template : Data/Template/ElementDataTimelineTemplate
+shared:
+	element_data_timeline_template : false
