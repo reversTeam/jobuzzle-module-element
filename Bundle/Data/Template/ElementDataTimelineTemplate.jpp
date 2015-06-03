@@ -1,0 +1,18 @@
+#import (Config.path +'/Kernel/Template/MasterTemplate') = MasterTemplate;
+
+class ElementDataTimelineTemplate extends MasterTemplate {
+
+	_viewClassName = 'ElementDataTemplateTimelineView';
+	_entity = undefined;
+
+	#default get, set for _entity;
+
+	onListen : function () {
+		var dispatcher = _super();
+
+		return dispatcher;
+	}
+
+}
+
+#export ElementDataTimelineTemplate;
