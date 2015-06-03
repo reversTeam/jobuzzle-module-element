@@ -1,0 +1,16 @@
+#import (Config.path +'/Kernel/Route/MasterRoute') = MasterRoute;
+
+class ElementDataMainRoute extends MasterRoute {
+
+	name = 'element';
+
+	baseName = 'Element';
+	baseRoute = '{elements}';
+	baseController = 'element_data_main_controller';
+
+	paramName = 'element_id';
+	paramRegex = '[0-9]+';
+
+}
+
+#export ElementDataMainRoute;
