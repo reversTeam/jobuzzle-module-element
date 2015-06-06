@@ -1,6 +1,6 @@
 #import (Config.path +'/Kernel/Template/View/MasterView') = MasterView;
 
-class ElementDataTemplateTimelineView extends MasterView {
+class ElementDataTemplateMiniatureView extends MasterView {
 
 	initialState : function () {
 		return {
@@ -20,4 +20,4 @@ class ElementDataTemplateTimelineView extends MasterView {
 
 }
 
-#export ElementDataTemplateTimelineView;
+#export ElementDataTemplateMiniatureView;
