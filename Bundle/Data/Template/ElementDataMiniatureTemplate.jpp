@@ -1,8 +1,8 @@
 #import (Config.path +'/Kernel/Template/MasterTemplate') = MasterTemplate;
 
-class ElementDataTimelineTemplate extends MasterTemplate {
+class ElementDataMiniatureTemplate extends MasterTemplate {
 
-	_viewClassName = 'ElementDataTemplateTimelineView';
+	_viewClassName = 'ElementDataTemplateMiniatureView';
 	_entity = undefined;
 
 	#default get, set for _entity;
@@ -19,4 +19,4 @@ class ElementDataTimelineTemplate extends MasterTemplate {
 
 }
 
-#export ElementDataTimelineTemplate;
+#export ElementDataMiniatureTemplate;

@@ -5,6 +5,7 @@ class ElementDataMainEntity extends MasterEntity {
 	_type = 'Element';
 
 	_templateTimeline = 'element_data_timeline_template';
+	_templateMiniature = 'element_data_miniature_template';
 
 	#default get, set for _parentid;
 	#default get, set for _creationdate;
@@ -12,8 +13,6 @@ class ElementDataMainEntity extends MasterEntity {
 
 	initialize : function () {
 		_super();
-
-		this.templateTimeline = undefined;
 
 		this._parentid = undefined;
 		this._creationdate = undefined;
@@ -31,14 +30,23 @@ class ElementDataMainEntity extends MasterEntity {
 			this.setUpdatedate(datas.updatedate);
 	}
 
-	displayTimeline : function () {
+	getTemplate : function (templateName) {
 		var templateManager = serviceLocator.get('TemplateManager');
-		if (this.templateTimeline == undefined) {
-			var template = templateManager.get(this._templateTimeline);
-			template.setEntity(this);
-			this.templateTimeline = React['createElement'](template.getView(), null);
+
+		if (this.templates[templateName] == undefined) {
+			this.templates[templateName] = templateManager.get(templateName);
+			this.templates[templateName].setEntity(this);
+			this.view[templateName] = React['createElement'](this.templates[templateName].getView(), null);
 		}
-		return this.templateTimeline;
+		return this.view[templateName];
+	}
+
+	displayTimeline : function () {
+		return this.getTemplate(this._templateTimeline);
+	}
+
+	displayMiniature : function () {
+		return this.getTemplate(this._templateMiniature);
 	}
 
 }
