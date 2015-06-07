@@ -1,0 +1,31 @@
+#import (Config.path +'/Kernel/Controller/MasterController') = MasterController;
+
+class ElementDataMainController extends MasterController {
+
+	_serviceName = 'element_data_main_service';
+
+	#default get for _translationFile;
+
+	public search : function (params) {
+		this.getService().search(params);
+	}
+
+	public create : function (params) {
+		this.getService().create(params);
+	}
+
+	public view : function (params) {
+		this.getService().view();	
+	}
+
+	public update : function (params) {
+		this.getService().update(params);	
+	}
+
+	public delete : function (params) {
+		this.getService().delete(params);
+	}
+
+}
+
+#export ElementDataMainController;

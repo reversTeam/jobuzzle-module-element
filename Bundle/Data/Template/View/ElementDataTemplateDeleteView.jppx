@@ -1,0 +1,11 @@
+#import (Config.path +'/Kernel/Template/View/ContentView') = ContentView;
+
+class ElementDataTemplateDeleteView extends ContentView {
+
+	display : function () {
+		return (<div>Delete Element</div>);
+	}
+
+}
+
+#export ElementDataTemplateDeleteView;

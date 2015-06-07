@@ -1,0 +1,11 @@
+#import (Config.path +'/Kernel/Template/View/ContentView') = ContentView;
+
+class ElementDataTemplateUpdateView extends ContentView {
+
+	display : function () {
+		return (<div>Update Element</div>);
+	}
+
+}
+
+#export ElementDataTemplateUpdateView;
