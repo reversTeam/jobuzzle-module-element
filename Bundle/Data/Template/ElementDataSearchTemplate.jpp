@@ -1,0 +1,51 @@
+class ElementDataSearchTemplate extends ContentTemplate {
+
+	_viewClassName = 'ElementDataTemplateSearchView';
+	_type = 'Element';
+	_route = 'element';
+
+	#default get for _type;
+	#default get for _route;
+
+	wait = false;
+	end = false;
+	limit = 50;
+	offset = 0;
+
+	onListen : function () {
+		var dispatcher = _super();
+
+		dispatcher.listen('Store:'+ this.getType() +':create', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +':delete', this, this.update.bind(this));
+		dispatcher.listen('Navigation:Scroll:Bottom98', this, this.getNext.bind(this));
+		dispatcher.listen('Navigation:Scroll:Bottom100', this, this.getNext.bind(this));
+	}
+
+	update : function () {
+		if (this.getVisibility())
+			this._view.update();
+	}
+
+	getNext : function () {
+		if (this.wait || this.end || !this.getVisibility())
+			return ;
+		var self = this;
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+		var router = serviceLocator.get('Router');
+
+		if (this._view.setState)
+			this._view.setState({ loader : true });
+		this.wait = true;
+		store.request(router.build('/'+ this.getRoute()), {
+			limit : this.limit,
+			offset : this.offset,
+		}, function (data) {
+			self.end = !data.result.length;
+			self.wait = false;
+			self._view.setState({ loader : false });
+			self.offset += self.limit;
+		});
+	}
+
+}

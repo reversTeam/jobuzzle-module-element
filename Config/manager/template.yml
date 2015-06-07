@@ -1,3 +1,14 @@
 invokables :
 	element_data_timeline_template : Data/Template/ElementDataTimelineTemplate
 	element_data_miniature_template : Data/Template/ElementDataMiniatureTemplate
+	element_data_search_template : Data/Template/ElementDataSearchTemplate
+	element_data_create_template : Data/Template/ElementDataCreateTemplate
+	element_data_view_template : Data/Template/ElementDataViewTemplate
+	element_data_delete_template : Data/Template/ElementDataDeleteTemplate
+	element_data_update_template : Data/Template/ElementDataUpdateTemplate
+shared :
+	element_data_search_template : true
+	element_data_create_template : true
+	element_data_view_template : true
+	element_data_delete_template : true
+	element_data_update_template : true

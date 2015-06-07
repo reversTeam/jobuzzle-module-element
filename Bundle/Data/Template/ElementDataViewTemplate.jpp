@@ -1,0 +1,9 @@
+#import (Config.path +'/Kernel/Template/ContentTemplate') = ContentTemplate;
+
+class ElementDataViewTemplate extends ContentTemplate {
+
+	_viewClassName = 'ElementDataTemplateViewView';
+
+}
+
+#export ElementDataViewTemplate;

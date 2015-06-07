@@ -1,0 +1,51 @@
+class ElementDataMainService extends MasterService {
+
+	_titleService = undefined;
+	_type = 'element';
+	_title = 'Elements';
+
+	#default get for _titleService;
+	#default get for _title;
+	#default get for _type;
+
+	initialize : function () {
+		_super();
+		var serviceManager = serviceLocator.get('ServiceManager');
+
+		this._titleService = serviceManager.get('navigation_title_change_service');
+	}
+
+	changeTitle : function (str, params) {
+		var translator = serviceLocator.get('Translator');
+		var title = translator.translate(this.getType() +'.'+ this.getTitle());
+		if (str)
+		 title += ' - '+ translator.translate(str, params);
+		this._titleService.changeTitle(title);
+	}
+
+	search : function () {
+		this.changeTitle('global.search');
+		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_search_template'});
+	}
+
+	create : function () {
+		this.changeTitle('global.create');
+		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_create_template'});
+	}
+
+	view : function (params) {
+		this.changeTitle(this.getType() +'.view', { url : 'params.element_id' });
+		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_view_template'});
+	}
+
+	update : function () {
+		this.changeTitle('global.update');
+		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_update_template'});
+	}
+
+	delete : function () {
+		this.changeTitle('global.delete');
+		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_delete_template'});
+	}
+
+}
