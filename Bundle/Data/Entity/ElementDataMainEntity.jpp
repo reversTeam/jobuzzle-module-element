@@ -19,6 +19,10 @@ class ElementDataMainEntity extends MasterEntity {
 		this._updatedate = undefined;
 	}
 
+	isMe : function () {
+		return false;
+	}
+
 	hydrate : function (datas) {
 		_super(datas);
 
