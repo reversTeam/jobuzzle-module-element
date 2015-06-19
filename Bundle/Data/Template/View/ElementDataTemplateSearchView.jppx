@@ -15,14 +15,13 @@ class ElementDataTemplateSearchView extends ContentView {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		return ({
 			loader : true,
-			students : store.getAll(this.getElementType())._entity
+			entities : store.getAll(this.getElementType())._entity
 		});
 	}
 
 	update : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
-
-		this.setState({ students : store.getAll(this.getElementType())._entity });
+		this.setState({ entities : store.getAll(this.getElementType())._entity });
 	}
 
 	display : function () {
@@ -33,15 +32,15 @@ class ElementDataTemplateSearchView extends ContentView {
 			loader = this.getTemplate('navigation_loader_main_template');
 		}
 
-		return (<div className={this.getClass() +'s'} key={this.props.key}>
-			{Object.keys(this.state.students).map(function (i) {
-				if (self.state.students[i].isMe())
+		return (<div className='entities' key={this.props.key}>
+			{Object.keys(this.state.entities).map(function (i) {
+				if (self.state.entities[i].isMe())
 					return null;
-				return (<div className={this.getClass()} key={i}>
-					{self.state.students[i].displayTimeline()}
+				return (<div className="entity" key={i}>
+					{self.state.entities[i].displayTimeline()}
 				</div>);
 			})}
-			<div className="loader_students">
+			<div className="loader_entities">
 				{loader}
 			</div>
 		</div>);
