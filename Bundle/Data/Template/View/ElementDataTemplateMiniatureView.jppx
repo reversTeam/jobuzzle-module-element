@@ -1,6 +1,4 @@
-#import (Config.path +'/Kernel/Template/View/MasterView') = MasterView;
-
-class ElementDataTemplateMiniatureView extends MasterView {
+class ElementDataTemplateMiniatureView extends ContentView {
 
 	initialState : function () {
 		return {
@@ -12,12 +10,10 @@ class ElementDataTemplateMiniatureView extends MasterView {
 		this.setState({ entity : this._template._entity });
 	}
 
-	render : function () {
+	display : function () {
 		return (
 			<div>{this.state.entity.getId() +' : '+ this.state.entity.getType()}</div>
 		);
 	}
 
 }
-
-#export ElementDataTemplateMiniatureView;

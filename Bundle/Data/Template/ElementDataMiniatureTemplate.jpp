@@ -1,6 +1,4 @@
-#import (Config.path +'/Kernel/Template/MasterTemplate') = MasterTemplate;
-
-class ElementDataMiniatureTemplate extends MasterTemplate {
+class ElementDataMiniatureTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateMiniatureView';
 	_entity = undefined;
@@ -14,9 +12,8 @@ class ElementDataMiniatureTemplate extends MasterTemplate {
 	}
 
 	update : function () {
-		this._view.update();
+		if (this.getVisibility())
+			this._view.update();
 	}
 
 }
-
-#export ElementDataMiniatureTemplate;
