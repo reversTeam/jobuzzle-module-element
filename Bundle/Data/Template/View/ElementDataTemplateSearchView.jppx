@@ -15,17 +15,28 @@ class ElementDataTemplateSearchView extends ContentView {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		return ({
 			loader : true,
-			entities : store.getAll(this.getElementType())._entity
+			entities : store.getAll(this.getElementType())._entity,
+			search : ''
 		});
 	}
 
 	update : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
-		this.setState({ entities : store.getAll(this.getElementType())._entity });
+		if (this.isMounted())
+			this.setState({ entities : store.getAll(this.getElementType())._entity });
+	}
+
+	searchRefesh	 : function (e) {
+		this.setState({ search : e.target.value });
+	}
+
+	onVisible : function () {
+		this.setState({ search : '' });	
 	}
 
 	display : function () {
 		var self = this;
+		var translator = serviceLocator.get('Translator');
 		var loader = null;
 
 		if (this.state.loader) {
@@ -33,8 +44,13 @@ class ElementDataTemplateSearchView extends ContentView {
 		}
 
 		return (<div className='entities' key={this.props.key}>
+			<div className="more-actions-filter">
+				<input type="text" placeholder={translator.translate('global.Search')}  onKeyUp={this.searchRefesh.bind(this)} />
+				<i className="fa fa-sliders"></i>
+				<i className="fa fa-trash"></i>
+			</div>
 			{Object.keys(this.state.entities).map(function (i) {
-				if (self.state.entities[i].isMe())
+				if (self.state.entities[i].isMe() || !self.state.entities[i].search(self.state.search))
 					return null;
 				return (<div className="entity" key={i}>
 					{self.state.entities[i].displayTimeline()}

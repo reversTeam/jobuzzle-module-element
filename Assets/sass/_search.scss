@@ -2,6 +2,49 @@ div.entities {
 	width: 100%;
 	position: relative;
 
+	div.more-actions-filter {
+		height: 30px;
+		width: 100%;
+		margin: 0px;
+		text-align: right;
+		
+		input {
+			vertical-align: top;
+			line-height: 24px;
+			background-color: rgba(white, 0.25);
+			border: 1px solid rgba(white, 0.4);
+			width: 200px;
+			padding: 0px 10px;
+			color: white;
+			outline: none;
+			transition: 0.6s;
+			color: rgba($primary_color, 0.4);
+			font-family: $primary_font;
+
+			&:focus {
+				background-color: rgba(white, 0.4);
+				border: 1px solid rgba($primary_color, 0.3);
+				color: rgba($primary_color, 0.7);
+			}
+
+			@include placeholder { color : rgba($primary_color, 0.3); }
+		}
+
+		i {
+			line-height: 28px;
+			font-size : 24px;
+			color : rgba($primary_color, 0.3);
+			text-shadow: none;
+			margin-left : 20px;
+			cursor: pointer;
+			transition: 0.2s;
+
+			&:hover {
+				color : rgba($primary_color, 0.7);
+			}
+		}
+	}
+
 	div.loader_entities {
 		width: 56px;
 		height: 20px;
@@ -13,5 +56,6 @@ div.entities {
 
 	div.entity {
 		display : inline-block;
+		margin : 10px;
 	}
 }

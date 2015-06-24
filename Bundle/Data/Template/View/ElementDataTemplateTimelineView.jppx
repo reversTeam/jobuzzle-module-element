@@ -1,6 +1,4 @@
-#import (Config.path +'/Kernel/Template/View/MasterView') = MasterView;
-
-class ElementDataTemplateTimelineView extends MasterView {
+class ElementDataTemplateTimelineView extends ContentView {
 
 	initialState : function () {
 		return {
@@ -9,15 +7,14 @@ class ElementDataTemplateTimelineView extends MasterView {
 	}
 
 	update : function () {
-		this.setState({ entity : this._template._entity });
+		if (this.isMounted())
+			this.setState({ entity : this._template._entity });
 	}
 
-	render : function () {
+	display : function () {
 		return (
 			<div>{this.state.entity.getId() +' : '+ this.state.entity.getType()}</div>
 		);
 	}
 
 }
-
-#export ElementDataTemplateTimelineView;

@@ -23,8 +23,9 @@ class ElementDataSearchTemplate extends ContentTemplate {
 	}
 
 	update : function () {
-		if (this.getVisibility())
+		if (this.getVisibility()) {
 			this._view.update();
+		}
 	}
 
 	getNext : function () {

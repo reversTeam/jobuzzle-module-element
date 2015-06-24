@@ -26,12 +26,19 @@ class ElementDataMainEntity extends MasterEntity {
 	hydrate : function (datas) {
 		_super(datas);
 
-		if (datas.parentid)
+		if (datas.parentid) {
 			this.setParentid(datas.parentid);
+		}
 		if (datas.creationdate)
 			this.setCreationdate(datas.creationdate);
 		if (datas.updatedate)
 			this.setUpdatedate(datas.updatedate);
+	}
+
+	getParent : function () {
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+
+		return store.get(this.getParentid());
 	}
 
 	getTemplate : function (templateName) {
@@ -40,12 +47,17 @@ class ElementDataMainEntity extends MasterEntity {
 		if (this.templates[templateName] == undefined) {
 			this.templates[templateName] = templateManager.get(templateName);
 			this.templates[templateName].setEntity(this);
+			this.templates[templateName].visible();
 			this.view[templateName] = React['createElement'](this.templates[templateName].getView(), null);
 		}
 		return this.view[templateName];
 	}
 
-	displayTimeline : function () {
+	search : function (params) {
+		return (params == '' || this.getId() == params);
+	}
+
+	displayTimeline : function (params) {
 		return this.getTemplate(this._templateTimeline);
 	}
 
