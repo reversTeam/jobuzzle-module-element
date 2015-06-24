@@ -24,26 +24,36 @@ class ElementDataMainService extends MasterService {
 	}
 
 	search : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
 		this.changeTitle('global.search');
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_search_template'});
 	}
 
 	create : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
 		this.changeTitle('global.create');
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_create_template'});
 	}
 
 	view : function (params) {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
 		this.changeTitle(this.getType() +'.view', { url : 'params.element_id' });
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_view_template'});
 	}
 
 	update : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
 		this.changeTitle('global.update');
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_update_template'});
 	}
 
 	delete : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
 		this.changeTitle('global.delete');
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_delete_template'});
 	}
