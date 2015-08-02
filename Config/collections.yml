@@ -1,4 +1,4 @@
 update:
-	protected :
+	protect :
 		- creationdate
 		- updatedate

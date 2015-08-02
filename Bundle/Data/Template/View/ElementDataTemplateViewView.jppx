@@ -1,11 +1,17 @@
-#import (Config.path +'/Kernel/Template/View/ContentView') = ContentView;
-
 class ElementDataTemplateViewView extends ContentView {
+
+	initialState : function () {
+		return {
+			entity : false
+		}
+	}
+
+	setEntity : function (entity) {
+		this.setState({ entity : entity });
+	}
 
 	display : function () {
 		return (<div>View Element</div>);
 	}
 
 }
-
-#export ElementDataTemplateViewView;

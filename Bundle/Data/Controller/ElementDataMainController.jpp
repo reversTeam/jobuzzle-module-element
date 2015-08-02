@@ -1,8 +1,8 @@
-#import (Config.path +'/Kernel/Controller/MasterController') = MasterController;
-
 class ElementDataMainController extends MasterController {
 
 	_serviceName = 'element_data_main_service';
+	_entityType = 'Element';
+	_url = 'element';
 
 	#default get for _translationFile;
 
@@ -15,7 +15,9 @@ class ElementDataMainController extends MasterController {
 	}
 
 	public view : function (params) {
-		this.getService().view();	
+		var entity = this.getEntity(params);
+
+		this.getService().view(entity);
 	}
 
 	public update : function (params) {
@@ -27,5 +29,3 @@ class ElementDataMainController extends MasterController {
 	}
 
 }
-
-#export ElementDataMainController;
