@@ -2,6 +2,7 @@ class ElementDataMainService extends MasterService {
 
 	_titleService = undefined;
 	_type = 'element';
+	_entityType = 'Element';
 	_title = 'Elements';
 
 	#default get for _titleService;
@@ -37,11 +38,22 @@ class ElementDataMainService extends MasterService {
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_create_template'});
 	}
 
-	view : function (params) {
-		var dispatcher = serviceLocator.get('Dispatcher');
+	getTitleParamsView : function (entity) {
+		if (entity)
+			return { id : entity.getId()};
+		return { id : '' };
+	}
 
-		this.changeTitle(this.getType() +'.view', { url : 'params.element_id' });
+	changeTitleView : function (entity) {
+		this.changeTitle(this.getType() +'.view', this.getTitleParamsView(entity));
+	}
+
+	view : function (entity) {
+		var dispatcher = serviceLocator.get('Dispatcher');
+		
+		this.changeTitleView(entity);
 		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_view_template'});
+		dispatcher.trigger(this.getEntityType() +':view:changeEntity', { entity : entity });
 	}
 
 	update : function () {
