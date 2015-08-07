@@ -1,5 +1,3 @@
-#import (Config.path +'/Kernel/Template/ContentTemplate') = ContentTemplate;
-
 class ElementDataViewTemplate extends ContentTemplate {
 
 	_serviceName = 'element_data_main_service';
@@ -29,5 +27,3 @@ class ElementDataViewTemplate extends ContentTemplate {
 	}
 
 }
-
-#export ElementDataViewTemplate;

@@ -1,5 +1,3 @@
-#import (Config.path +'/Kernel/Route/MasterRoute') = MasterRoute;
-
 class ElementDataMainRoute extends MasterRoute {
 
 	name = 'element';
@@ -12,5 +10,3 @@ class ElementDataMainRoute extends MasterRoute {
 	paramRegex = '[0-9]+';
 
 }
-
-#export ElementDataMainRoute;

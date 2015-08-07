@@ -1,5 +1,3 @@
-#import (Config.path +'/Kernel/Entity/MasterEntity') = MasterEntity;
-
 class ElementDataMainEntity extends MasterEntity {
 
 	_type = 'Element';
@@ -66,5 +64,3 @@ class ElementDataMainEntity extends MasterEntity {
 	}
 
 }
-
-#export ElementDataMainEntity;
