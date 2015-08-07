@@ -1,9 +1,5 @@
-#import (Config.path +'/Kernel/Template/ContentTemplate') = ContentTemplate;
-
 class ElementDataDeleteTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateDeleteView';
 
 }
-
-#export ElementDataDeleteTemplate;

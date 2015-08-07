@@ -1,5 +1,3 @@
-#import (Config.path +'/Kernel/Template/View/ContentView') = ContentView;
-
 class ElementDataTemplateCreateView extends ContentView {
 
 	display : function () {
@@ -7,5 +5,3 @@ class ElementDataTemplateCreateView extends ContentView {
 	}
 
 }
-
-#export ElementDataTemplateCreateView;
