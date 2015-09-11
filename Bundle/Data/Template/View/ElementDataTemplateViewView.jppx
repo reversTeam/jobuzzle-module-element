@@ -7,19 +7,25 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 14:41:57
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
 
 	initialState : function () {
 		return {
-			entity : false
+			entity : this._template._entity
 		}
 	}
 
 	setEntity : function (entity) {
-		this.setState({ entity : entity });
+		this.setState({ 'entity' : entity });
+	}
+
+	update : function (id) {
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+		if (this.isMounted())
+			this.setState({ entity : store.get(id) });
 	}
 
 	display : function () {
