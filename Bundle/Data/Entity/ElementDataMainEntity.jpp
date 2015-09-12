@@ -7,26 +7,22 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 16:59:01
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
 
-	_type = 'Element';
+	public _type = 'Element';
 
-	_templateTimeline = 'element_data_timeline_template';
-	_templateMiniature = 'element_data_miniature_template';
-
-	#default get, set for _parentid;
-	#default get, set for _creationdate;
-	#default get, set for _updatedate;
+	public _templateTimeline = 'element_data_timeline_template';
+	public _templateMiniature = 'element_data_miniature_template';
 
 	initialize : function () {
 		_super();
 
-		this._parentid = undefined;
-		this._creationdate = undefined;
-		this._updatedate = undefined;
+		this['_parentid'] = undefined;
+		this['_creationdate'] = undefined;
+		this['_updatedate'] = undefined;
 	}
 
 	isMe : function () {
@@ -35,14 +31,12 @@ class ElementDataMainEntity extends MasterEntity {
 
 	hydrate : function (datas) {
 		_super(datas);
-
-		if (datas.parentid) {
-			this.setParentid(datas.parentid);
-		}
-		if (datas.creationdate)
-			this.setCreationdate(datas.creationdate);
-		if (datas.updatedate)
-			this.setUpdatedate(datas.updatedate);
+		if (datas['parentid'])
+			this.setParentid(datas['parentid']);
+		if (datas['creationdate'])
+			this.setCreationdate(datas['creationdate']);
+		if (datas['updatedate'])
+			this.setUpdatedate(datas['updatedate']);
 	}
 
 	getParent : function () {
@@ -58,7 +52,7 @@ class ElementDataMainEntity extends MasterEntity {
 			this.templates[templateName] = templateManager.get(templateName);
 			this.templates[templateName].setEntity(this);
 			this.templates[templateName].visible();
-			this.view[templateName] = React['createElement'](this.templates[templateName].getView(), null);
+			this.view[templateName] = React.createElement(this.templates[templateName].getView(), null);
 		}
 		return this.view[templateName];
 	}
@@ -68,11 +62,40 @@ class ElementDataMainEntity extends MasterEntity {
 	}
 
 	displayTimeline : function (params) {
-		return this.getTemplate(this._templateTimeline);
+		return this.getTemplate(this['_templateTimeline']);
 	}
 
 	displayMiniature : function () {
-		return this.getTemplate(this._templateMiniature);
+		return this.getTemplate(this['_templateMiniature']);
 	}
 
+	public getParentid : function () {
+		return this['_parentid'];
+	}
+
+	public setParentid : function (parentId) {
+		this['_parentid'] = parentId;
+
+		return this;
+	}
+
+	public getCreationdate : function () {
+		return this['_creationdate'];
+	}
+
+	public setCreationdate : function (creationdate) {
+		this['_creationdate'] = creationdate;
+
+		return this;
+	}
+
+	public getUpdatedate : function () {
+		return this['_updatedate'];
+	}
+
+	public setUpdatedate : function (updatedate) {
+		this['_updatedate'] = updatedate;
+
+		return this;
+	}
 }

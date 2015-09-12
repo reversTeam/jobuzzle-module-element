@@ -7,20 +7,17 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 17:57:48
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 14:19:33
 **************************************************************/
 
 class ElementDataViewTemplate extends ContentTemplate {
 
 	_serviceName = 'element_data_main_service';
 	_viewClassName = 'ElementDataTemplateViewView';
-	_type = 'Element';
-	_entity = undefined;
+	public _type = 'Element';
+	public _entity = undefined;
 
-	#default get for _type;
-	#default get, set for _entity;
-
-	onListen : function () {
+	public onListen : function () {
 		var dispatcher = _super();
 
 		dispatcher.listen(this.getType() +':view:changeEntity', this, this.changeEntity.bind(this));
@@ -28,37 +25,51 @@ class ElementDataViewTemplate extends ContentTemplate {
 		return dispatcher;
 	}
 
-	update : function (trigger, datas) {
+	public update : function (trigger, datas) {
 		if (this.getVisibility()) {
-			this._view.update(this._entity.getId());
+			this._view.update(this['_entity'].getId());
 		}
 	}
 
 	setEntityView : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
-		if (this._entity && this._entity.getId() == entity.getId())
+		if (this['_entity'] && this['_entity'].getId() == entity.getId())
 			return
 
-		if (this._entity != undefined) {
-			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this._entity.getId() +':update', this);
+		if (this['_entity'] != undefined) {
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':update', this);
 		}
 
 		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':update', this, this.update.bind(this));
 		this._view.setEntity(entity);
-		this._entity = entity;
+		this['_entity'] = entity;
 	}
 
 	changeEntity : function (trigger, datas) {
-		if (datas.entity && this._view && this._view.setEntity) {
-			this.getService().changeTitleView(datas.entity);
-			this.setEntityView(datas.entity);
-		} else if (datas.entity) {
+		if (datas['entity'] && this._view && this._view.setEntity) {
+			this.getService().changeTitleView(datas['entity']);
+			this.setEntityView(datas['entity']);
+		} else if (datas['entity']) {
 			var self = this;
 			setTimeout(function () {
 				self.changeEntity(trigger, datas);
 			}, 100);
 		}
+	}
+
+	public getType : function () {
+		return this['_type'];
+	}
+
+	public getEntity : function () {
+		return this['_entity'];
+	}
+
+	public setEntity : function (entity) {
+		this['_entity'] = entity;
+
+		return this;
 	}
 
 }
