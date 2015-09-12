@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 20:40:24
 **************************************************************/
 
 class ElementDataMainController extends MasterController {
@@ -36,8 +36,8 @@ class ElementDataMainController extends MasterController {
 		this.getService().update(params);	
 	}
 
-	public delete : function (params) {
-		this.getService().delete(params);
+	public remove : function (params) {
+		this.getService().remove(params);
 	}
 
 }

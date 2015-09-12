@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 14:07:17
 **************************************************************/
 
 class ElementDataMainService extends MasterService {
@@ -28,7 +28,7 @@ class ElementDataMainService extends MasterService {
 		this._titleService = serviceManager.get('navigation_title_change_service');
 	}
 
-	changeTitle : function (str, params) {
+	public changeTitle : function (str, params) {
 		var translator = serviceLocator.get('Translator');
 		var title = translator.translate(this.getType() +'.'+ this.getTitle());
 		if (str)
@@ -36,18 +36,18 @@ class ElementDataMainService extends MasterService {
 		this._titleService.changeTitle(title);
 	}
 
-	search : function () {
+	public search : function () {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
 		this.changeTitle('global.search');
-		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_search_template'});
+		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_search_template'});
 	}
 
-	create : function () {
+	public create : function () {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
 		this.changeTitle('global.create');
-		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_create_template'});
+		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_create_template'});
 	}
 
 	getTitleParamsView : function (entity) {
@@ -56,30 +56,31 @@ class ElementDataMainService extends MasterService {
 		return { id : '' };
 	}
 
-	changeTitleView : function (entity) {
+	public changeTitleView : function (entity) {
 		this.changeTitle(this.getType() +'.view', this.getTitleParamsView(entity));
 	}
 
-	view : function (entity) {
+	public view : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 		
 		this.changeTitleView(entity);
-		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_view_template'});
-		dispatcher.trigger(this.getEntityType() +':view:changeEntity', { entity : entity });
+		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_view_template'});
+
+		dispatcher.trigger(this.getEntityType() +':view:changeEntity', { 'entity' : entity });
 	}
 
-	update : function () {
+	public update : function () {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
 		this.changeTitle('global.update');
-		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_update_template'});
+		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_update_template'});
 	}
 
-	delete : function () {
+	public remove : function () {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
 		this.changeTitle('global.delete');
-		dispatcher.trigger('Body:Content:change', {content : this.getType() +'_data_delete_template'});
+		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_delete_template'});
 	}
 
 }

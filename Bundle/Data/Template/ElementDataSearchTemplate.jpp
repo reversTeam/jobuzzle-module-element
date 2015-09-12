@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 13:00:29
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 00:06:23
 **************************************************************/
 
 class ElementDataSearchTemplate extends ContentTemplate {
@@ -24,7 +24,7 @@ class ElementDataSearchTemplate extends ContentTemplate {
 	limit = 50;
 	offset = 0;
 
-	onListen : function () {
+	public onListen : function () {
 		var dispatcher = _super();
 
 		dispatcher.listen('Store:'+ this.getType() +':create', this, this.update.bind(this));
@@ -34,7 +34,7 @@ class ElementDataSearchTemplate extends ContentTemplate {
 		dispatcher.listen('Navigation:Scroll:Bottom100', this, this.getNext.bind(this));
 	}
 
-	update : function () {
+	public update : function () {
 		if (this.getVisibility()) {
 			this._view.update();
 		}
@@ -46,17 +46,17 @@ class ElementDataSearchTemplate extends ContentTemplate {
 		var self = this;
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var router = serviceLocator.get('Router');
+		var params = {};
+		params["limit"] = this.limit;
+		params["offset"] = this.offset;
 
-		if (this._view.setState)
-			this._view.setState({ loader : true });
+		if (this._view['setState'])
+			this._view['setState']({ 'loader' : true });
 		this.wait = true;
-		store.request(router.build('/'+ this.getRoute()), {
-			limit : this.limit,
-			offset : this.offset,
-		}, function (data) {
+		store.request(router.build('/'+ this.getRoute()), params, function (data) {
 			self.end = !data.result.length;
 			self.wait = false;
-			self._view.setState({ loader : false });
+			self._view['setState']({ 'loader' : false });
 			self.offset += self.limit;
 		});
 	}

@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 13:22:54
 **************************************************************/
 
 class ElementDataTemplateSearchView extends ContentView {
@@ -20,33 +20,33 @@ class ElementDataTemplateSearchView extends ContentView {
 
 	initialize : function () {
 		_super();
-		this._template.getNext();
+		this['_template'].getNext();
 	}
 
-	initialState : function () {
+	public initialState : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		return ({
-			loader : true,
-			entities : store.getAll(this.getElementType())._entity,
-			search : ''
+			'loader' : true,
+			'entities' : store.getAll(this.getElementType())._entity,
+			'search' : ''
 		});
 	}
 
-	update : function () {
+	public update : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		if (this.isMounted())
-			this.setState({ entities : store.getAll(this.getElementType())._entity });
+			this['setState']({ 'entities' : store.getAll(this.getElementType())._entity });
 	}
 
 	searchRefesh	 : function (e) {
-		this.setState({ search : e.target.value });
+		this['setState']({ 'search' : e.target.value });
 	}
 
 	onVisible : function () {
-		this.setState({ search : '' });	
+		this['setState']({ 'search' : '' });	
 	}
 
-	display : function () {
+	public display : function () {
 		var self = this;
 		var translator = serviceLocator.get('Translator');
 		var loader = null;
