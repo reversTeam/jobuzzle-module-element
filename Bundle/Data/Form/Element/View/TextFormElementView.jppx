@@ -3,16 +3,30 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-15 22:35:12
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:18:48
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 11:41:52
 **************************************************************/
 
-class ElementDataCreateTemplate extends FormTemplate {
+class TextFormElementView extends MasterElementView {
 
-	_viewClassName = 'ElementDataTemplateCreateView';
-	_serviceName = 'element_data_main_service';
+	initialState : function () {
+		return {
+			'value' : ''
+		}
+	}
+
+	changeValue : function (e) {
+		this._template.setValue(e.target.value);
+	}
+
+	render : function () {
+		return <div className="form">
+			<span className="label">{this._template.getLabel()}</span>
+			<input type="text" defaultValue={this._template.getValue()} onKeyUp={this.changeValue.bind(this)} />
+		</div>;
+	}
 
 }

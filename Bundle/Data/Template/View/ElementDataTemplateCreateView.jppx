@@ -7,10 +7,10 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 21:26:40
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:15:20
 **************************************************************/
 
-class ElementDataTemplateCreateView extends ContentView {
+class ElementDataTemplateCreateView extends FormView {
 
 	public display : function () {
 		return (<div>Create Element</div>);

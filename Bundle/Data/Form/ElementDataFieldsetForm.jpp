@@ -1,0 +1,91 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-15 15:12:29
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-16 21:08:05
+**************************************************************/
+
+class ElementDataFieldsetForm extends MasterFormFieldset {
+
+	public _formName = 'Element';
+	public _createFormName = 'element_data_create_form';
+	public _searchFormName = 'element_data_search_form';
+	public _editFormName = 'element_data_edit_form';
+
+	public _idDisplay = undefined;
+	public _parentidDisplay = undefined;
+	public _creationdateDisplay = undefined;
+	public _updatedateDisplay = undefined;
+
+	public _idInput = undefined;
+	public _parentidInput = undefined;
+	public _creationdateInput = undefined;
+	public _updatedateInput = undefined;
+
+	initialize : function () {
+		_super();
+
+		// console.debug('FIELDSET');
+	}
+
+	public getElementsDisplay : function () {
+		var elementsDisplay = _super();
+
+		elementsDisplay['id'] = this.getIdDisplay();
+		elementsDisplay['parentid'] = this.getParentidDisplay();
+		elementsDisplay['creationdate'] = this.getCreationdateDisplay();
+		elementsDisplay['updatedate'] = this.getUpdatedateDisplay();
+
+		return elementsDisplay;
+	}
+
+	public getIdDisplay : function () {
+		if (this['_idDisplay'] == undefined) {
+			this['_idDisplay'] = {
+				type : 'Text',
+				label : 'Id',
+				options : {},
+				attributes : {}
+			};
+		}
+		return this['_idDisplay'];
+	}
+
+	public getParentidDisplay : function () {
+		if (this['_parentidDisplay'] == undefined) {
+			this['_parentidDisplay'] = {
+				type : 'Text',
+				label : 'Parent id',
+				options : {},
+				attributes : {}
+			};
+		}
+		return this['_parentidDisplay'];
+	}
+
+	public getCreationdateDisplay : function () {
+		if (this['_creationdateDisplay'] == undefined) {
+			this['_creationdateDisplay'] = {
+				type : 'Text',
+				label : 'Creation date',
+			};
+		}
+		return this['_creationdateDisplay'];
+	}
+
+	public getUpdatedateDisplay : function () {
+		if (this['_updatedateDisplay]'] == undefined) {
+			this['_updatedateDisplay'] = {
+				type : 'Text',
+				label : 'UpdateDate',
+			};
+		}
+		return this['_updatedateDisplay'];
+	}
+
+}

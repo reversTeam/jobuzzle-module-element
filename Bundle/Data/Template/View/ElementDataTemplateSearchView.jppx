@@ -7,10 +7,10 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 13:22:54
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:15:26
 **************************************************************/
 
-class ElementDataTemplateSearchView extends ContentView {
+class ElementDataTemplateSearchView extends FormView {
 
 	_class = 'element';
 	_elementType = 'Element';

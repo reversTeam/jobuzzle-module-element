@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 14:19:33
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 23:34:30
 **************************************************************/
 
 class ElementDataViewTemplate extends ContentTemplate {
@@ -20,7 +20,7 @@ class ElementDataViewTemplate extends ContentTemplate {
 	public onListen : function () {
 		var dispatcher = _super();
 
-		dispatcher.listen(this.getType() +':view:changeEntity', this, this.changeEntity.bind(this));
+		dispatcher.listen(this.getType() +':load:entity', this, this.changeEntity.bind(this));
 
 		return dispatcher;
 	}

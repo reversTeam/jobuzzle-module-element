@@ -1,0 +1,69 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-15 14:15:05
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 13:04:14
+**************************************************************/
+
+class ElementDataCreateForm extends MasterForm {
+
+	public _title = 'Create element';
+	public _namespace = 'Element';
+	public _url = '/element/create';
+	public _sendButton = {
+		label : 'Create',
+	};
+
+
+	initialize : function () {
+		_super();
+		// console.debug('CREATE');
+	}
+
+	public getUrl : function () {
+		return this['_url'];
+	}
+
+	public setUrl : function (url) {
+		this['_url'] = url;
+
+		return this;
+	}
+
+	public getNamespace : function () {
+		return this['_namespace'];
+	}
+
+	public setNamespace : function (namespace) {
+		this['namespace'] = namespace;
+
+		return this;
+	}
+
+	public getTitle : function () {
+		return this['_title'];
+	}
+
+	public setTitle : function (title) {
+		this['_title'] = title;
+
+		return this;
+	}
+
+	public getSendButton : function () {
+		this['_sendButton']['namespace'] = this.getNamespace();
+		return this['_sendButton'];
+	}
+
+	public setLabelSend : function (sendButton) {
+		this['_sendButton'] = sendButton;
+
+		return this;
+	}
+
+}
