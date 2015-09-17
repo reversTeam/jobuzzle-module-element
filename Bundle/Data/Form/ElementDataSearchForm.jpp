@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 13:04:27
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:48:37
 **************************************************************/
 
 class ElementDataSearchForm extends MasterForm {
@@ -15,13 +15,11 @@ class ElementDataSearchForm extends MasterForm {
 	public _title = 'Search element';
 	public _namespace = 'Element';
 	public _url = '/element';
-	public _sendButton = {
-		label : 'Search',
-	};
+	public _sendButton = {};
 
 	initialize : function () {
 		_super();
-		// console.debug('SEARCH');
+		this['_sendButton']['label'] = 'Search';
 	}
 
 	public getUrl : function () {
