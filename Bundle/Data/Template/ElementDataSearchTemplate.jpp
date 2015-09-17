@@ -7,12 +7,13 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 00:06:23
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:18:39
 **************************************************************/
 
-class ElementDataSearchTemplate extends ContentTemplate {
+class ElementDataSearchTemplate extends FormTemplate {
 
 	_viewClassName = 'ElementDataTemplateSearchView';
+	_serviceName = 'element_data_main_service';
 	_type = 'Element';
 	_route = 'element';
 

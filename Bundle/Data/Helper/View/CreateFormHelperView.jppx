@@ -1,0 +1,104 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-15 19:17:10
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 17:36:33
+**************************************************************/
+
+class CreateFormHelperView extends MasterHelperView {
+
+	public _inputs = {};
+
+	initialState : function () {
+		return {
+			loader : false
+		}
+	}
+
+	addInput : function (input) {
+		if (!input)
+			return ;
+		var key = input.getIdentifier();
+		if (!this['_inputs'][key])
+			this['_inputs'][key] = input;
+	}
+
+	getFormElementManager : function () {
+		return serviceLocator.get('FormElementManager');
+	}
+
+	disabledLoader : function () {
+		this.setState({ loader : false });
+	}
+
+	sendForm : function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		this.setState({ loader : true });
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+		var router = serviceLocator.get('Router');
+		var form = this._template.getForm();
+		var params = {};
+		var entity = this._template.getEntity();
+		
+		for (var i in this['_inputs']) {
+			var formElement = this['_inputs'][i];
+			var getter = 'get' + formElement.getTarget()[0].toUpperCase() + formElement.getTarget().substr(1, formElement.getTarget().length - 1);
+			if (( !entity || (entity && formElement.getValue() != entity[getter]()) )
+				&& ( formElement.getValue() != '' && formElement.getValue() != undefined ))
+				params[formElement.getTarget()] = formElement.getValue();
+		}
+
+		if (form.getParamNameRoute && typeof form.getParamNameRoute == 'function') {
+			var paramsRoute = {};
+			paramsRoute[form.getParamNameRoute()] = entity.getId();
+			var url = router.build(form.getUrl(), paramsRoute);
+		} else {
+			var url = router.build(form.getUrl());
+
+		}
+		store.request(url, params, this.disabledLoader.bind(this));
+	}
+
+	render : function () {
+		var self = this;
+		var form = this._template.getForm();
+		var entity = this._template.getEntity();
+		var inputs = form.getElementsDisplay();
+		var sendButton = form.getSendButton();
+		sendButton['namespace'] = form.getFormName();
+
+		self.getFormElement('Button', sendButton, 'send')
+
+		return <form onSubmit={this.sendForm.bind(this)} method="POST">
+			<fieldset>
+				<legend>{form.getTitle()}</legend>
+				{Object.keys(inputs).map(function(i) {
+					inputs[i]['namespace'] = form.getFormName();
+					var element = self.getFormElement(inputs[i]['type'], inputs[i], i);
+					var input = self.getFormElementTemplate(inputs[i]['type'], form.getFormName(), i);
+
+					if (entity) {
+						var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
+						if (typeof entity[getter] == 'function') {
+							input.setValue(entity[getter]());
+						}
+					}
+					self.addInput(input);
+					return element;
+				})}
+				<div className="sendFormContainer">{ 
+					this.state.loader 
+						? self.getTemplate('navigation_loader_main_template')
+						: self.getFormElement('Button', sendButton, 'send')
+				}</div>
+			</fieldset>
+		</form>;
+	}
+
+}

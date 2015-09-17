@@ -3,16 +3,13 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-16 20:53:31
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:18:48
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-16 20:53:44
 **************************************************************/
 
-class ElementDataCreateTemplate extends FormTemplate {
-
-	_viewClassName = 'ElementDataTemplateCreateView';
-	_serviceName = 'element_data_main_service';
-
+class ButtonFormElement extends MasterElement {
+	_viewClassName = 'ButtonFormElementView';
 }

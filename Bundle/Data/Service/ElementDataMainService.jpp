@@ -7,25 +7,29 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 14:07:17
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-16 00:22:18
 **************************************************************/
 
 class ElementDataMainService extends MasterService {
 
 	_titleService = undefined;
+	_fieldset = undefined;
 	_type = 'element';
 	_entityType = 'Element';
 	_title = 'Elements';
+	_fieldsetName = 'element_data_fieldset_form';
 
 	#default get for _titleService;
 	#default get for _title;
 	#default get for _type;
+	#default get, set for _fieldset;
 
 	initialize : function () {
 		_super();
 		var serviceManager = serviceLocator.get('ServiceManager');
 
 		this._titleService = serviceManager.get('navigation_title_change_service');
+		this.setFieldset(serviceLocator.get('FormManager').get(this._fieldsetName));
 	}
 
 	public changeTitle : function (str, params) {
@@ -60,20 +64,26 @@ class ElementDataMainService extends MasterService {
 		this.changeTitle(this.getType() +'.view', this.getTitleParamsView(entity));
 	}
 
+	public changeTitleUpdate : function (entity) {
+		this.changeTitle(this.getType() +'.update', this.getTitleParamsView(entity));
+	} 
+
 	public view : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 		
 		this.changeTitleView(entity);
 		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_view_template'});
 
-		dispatcher.trigger(this.getEntityType() +':view:changeEntity', { 'entity' : entity });
+		dispatcher.trigger(this.getEntityType() +':load:entity', { 'entity' : entity });
 	}
 
-	public update : function () {
+	public update : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
-		this.changeTitle('global.update');
+		this.changeTitleUpdate(entity);
 		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_update_template'});
+
+		dispatcher.trigger(this.getEntityType() +':load:entity', { 'entity' : entity });
 	}
 
 	public remove : function () {

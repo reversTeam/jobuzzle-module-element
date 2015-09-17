@@ -1,0 +1,40 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-17 14:37:49
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 14:52:30
+**************************************************************/
+
+class SelectFormElementView extends MasterElementView {
+
+	initialState : function () {
+		return {
+			'value' : ''
+		}
+	}
+
+	changeValue : function (e) {
+		this._template.setValue(e.target.value);
+	}
+
+	render : function () {
+		var self = this;
+		var options = this._template.getOptions();
+		var values = options['values'];
+
+		return <div className="form">
+			<span className="label">{this._template.getLabel()}</span>
+			<select defaultValue={this._template.getValue()} onChange={this.changeValue.bind(this)}>
+				{Object.keys(values).map(function (i) {
+					return <option value={i}>{values[i]}</option>
+				})}
+			</select>
+		</div>;
+	}
+
+}

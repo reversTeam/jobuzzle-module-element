@@ -3,16 +3,17 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-16 20:53:19
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:18:48
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 17:22:49
 **************************************************************/
 
-class ElementDataCreateTemplate extends FormTemplate {
+class ButtonFormElementView extends MasterElementView {
 
-	_viewClassName = 'ElementDataTemplateCreateView';
-	_serviceName = 'element_data_main_service';
+	render : function () {
+		return <button type="text" className="sendForm" value={this._template.getValue()}>{this._template.getLabel()}</button>;
+	}
 
 }
