@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 15:36:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:48:26
 **************************************************************/
 
 class ElementDataEditForm extends MasterForm {
@@ -16,13 +16,11 @@ class ElementDataEditForm extends MasterForm {
 	public _namespace = 'Element';
 	public _url = '/element/view/update';
 	public _paramNameRoute = 'element_id';
-	public _sendButton = {
-		label : 'Edit',
-	};
+	public _sendButton = {};
 
 	initialize : function () {
 		_super();
-		// console.debug('EDIT');
+		this['_sendButton']['label'] = 'Edit';
 	}
 
 	public getParamNameRoute : function () {

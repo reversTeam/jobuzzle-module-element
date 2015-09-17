@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 13:04:14
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:47:57
 **************************************************************/
 
 class ElementDataCreateForm extends MasterForm {
@@ -15,14 +15,12 @@ class ElementDataCreateForm extends MasterForm {
 	public _title = 'Create element';
 	public _namespace = 'Element';
 	public _url = '/element/create';
-	public _sendButton = {
-		label : 'Create',
-	};
+	public _sendButton = {};
 
 
 	initialize : function () {
 		_super();
-		// console.debug('CREATE');
+		this['_sendButton']['label'] = 'Create'; 	
 	}
 
 	public getUrl : function () {
