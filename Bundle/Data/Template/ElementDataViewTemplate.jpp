@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 23:34:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 16:26:29
 **************************************************************/
 
 class ElementDataViewTemplate extends ContentTemplate {
@@ -31,6 +31,13 @@ class ElementDataViewTemplate extends ContentTemplate {
 		}
 	}
 
+	public remove : function () {
+		if (this.getVisibility()) {
+			this._view.update(false);
+		}	
+		this['_entity'] = undefined;
+	}
+
 	setEntityView : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
@@ -39,9 +46,11 @@ class ElementDataViewTemplate extends ContentTemplate {
 
 		if (this['_entity'] != undefined) {
 			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':update', this);
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':remove', this);
 		}
 
 		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':update', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':remove', this, this.remove.bind(this));
 		this._view.setEntity(entity);
 		this['_entity'] = entity;
 	}

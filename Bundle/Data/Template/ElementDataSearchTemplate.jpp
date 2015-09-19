@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:18:39
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 15:56:47
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -30,7 +30,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 
 		dispatcher.listen('Store:'+ this.getType() +':create', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
-		dispatcher.listen('Store:'+ this.getType() +':delete', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +':remove', this, this.update.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom98', this, this.getNext.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom100', this, this.getNext.bind(this));
 	}

@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 17:36:33
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 16:50:06
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -83,12 +83,11 @@ class CreateFormHelperView extends MasterHelperView {
 					var element = self.getFormElement(inputs[i]['type'], inputs[i], i);
 					var input = self.getFormElementTemplate(inputs[i]['type'], form.getFormName(), i);
 
-					if (entity) {
-						var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
-						if (typeof entity[getter] == 'function') {
-							input.setValue(entity[getter]());
-						}
-					}
+					var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
+					if (entity && typeof entity[getter] == 'function')
+						input.setValue(entity[getter]());
+					else
+						input.setValue(undefined);
 					self.addInput(input);
 					return element;
 				})}

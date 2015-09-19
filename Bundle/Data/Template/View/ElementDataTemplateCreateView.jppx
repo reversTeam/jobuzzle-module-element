@@ -7,13 +7,24 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:15:20
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 13:03:51
 **************************************************************/
 
 class ElementDataTemplateCreateView extends FormView {
 
+	public _class = 'element';
+
+	public getClass : function () {
+		return this['_class'];
+	}
+
 	public display : function () {
-		return (<div>Create Element</div>);
+		var createForm = this.getService().getFieldset().getCreateForm();
+		var className = this.getClass() +' create';
+
+		return <div className={className}>
+			{ this.getHelper('CreateForm', { form : createForm, entity : this.state.entity }) }
+		</div>;
 	}
 
 }
