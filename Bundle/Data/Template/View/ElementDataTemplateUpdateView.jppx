@@ -7,10 +7,16 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 23:46:25
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 16:16:10
 **************************************************************/
 
 class ElementDataTemplateUpdateView extends FormView {
+
+	public _class = 'company';
+
+	public getClass : function () {
+		return this['_class'];
+	}
 
 	public initialState : function () {
 		return {
@@ -24,12 +30,21 @@ class ElementDataTemplateUpdateView extends FormView {
 
 	public update : function (id) {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
-		if (this.isMounted())
-			this['setState']({ 'entity' : store.get(id) });
+		if (this.isMounted()) {
+			if (id)
+				this['setEntity'](store.get(id));
+			else
+				this['setEntity'](undefined);
+		}
 	}
 
-	display : function () {
-		return (<div>Update Element</div>);
+	public display : function () {
+		var editForm = this.getService().getFieldset().getEditForm();
+		var className = this.getClass() +' update';
+
+		return <div className={className}>
+			{ this.getHelper('CreateForm', { form : editForm, entity : this.state.entity }) }
+		</div>;
 	}
 
 }
