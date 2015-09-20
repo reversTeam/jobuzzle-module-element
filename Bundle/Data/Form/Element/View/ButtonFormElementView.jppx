@@ -7,13 +7,14 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 17:22:49
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 12:29:43
 **************************************************************/
 
 class ButtonFormElementView extends MasterElementView {
 
 	render : function () {
-		return <button type="text" className="sendForm" value={this._template.getValue()}>{this._template.getLabel()}</button>;
+		var translator = serviceLocator.get('Translator');
+		return <button type="text" className="sendForm" value={this._template.getValue()}>{translator.translate(this._template.getLabel())}</button>;
 	}
 
 }

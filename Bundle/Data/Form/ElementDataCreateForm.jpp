@@ -7,20 +7,31 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:47:57
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 13:46:42
 **************************************************************/
 
 class ElementDataCreateForm extends MasterForm {
 
-	public _title = 'Create element';
+	public _title = 'form.title.element.create';
 	public _namespace = 'Element';
 	public _url = '/element/create';
-	public _sendButton = {};
+	public _typeForm = 'create';
 
 
 	initialize : function () {
 		_super();
-		this['_sendButton']['label'] = 'Create'; 	
+		this['_sendButton'] = {};
+		this['_sendButton']['label'] = 'form.submit.element.create'; 	
+	}
+
+	public getTypeForm : function () {
+		return this['_typeForm'];
+	}
+
+	public setTypeForm : function (typeForm) {
+		this['_typeForm'] = typeForm;
+
+		return this;
 	}
 
 	public getUrl : function () {

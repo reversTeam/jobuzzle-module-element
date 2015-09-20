@@ -7,19 +7,20 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:48:37
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 13:46:34
 **************************************************************/
 
 class ElementDataSearchForm extends MasterForm {
 
-	public _title = 'Search element';
+	public _title = 'form.title.element.search';
 	public _namespace = 'Element';
 	public _url = '/element';
-	public _sendButton = {};
+	public _typeForm = 'search';
 
 	initialize : function () {
 		_super();
-		this['_sendButton']['label'] = 'Search';
+		this['_sendButton'] = {};
+		this['_sendButton']['label'] = 'form.submit.element.search';
 	}
 
 	public getUrl : function () {
@@ -38,6 +39,16 @@ class ElementDataSearchForm extends MasterForm {
 
 	public setNamespace : function (namespace) {
 		this['namespace'] = namespace;
+
+		return this;
+	}
+
+	public getTypeForm : function () {
+		return this['_typeForm'];
+	}
+
+	public setTypeForm : function (typeForm) {
+		this['_typeForm'] = typeForm;
 
 		return this;
 	}

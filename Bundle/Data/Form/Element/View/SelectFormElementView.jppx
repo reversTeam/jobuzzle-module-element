@@ -7,31 +7,22 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 14:52:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 11:34:11
 **************************************************************/
 
-class SelectFormElementView extends MasterElementView {
+class SelectFormElementView extends MasterFormElementView {
 
-	initialState : function () {
-		return {
-			'value' : ''
-		}
-	}
-
-	changeValue : function (e) {
-		this._template.setValue(e.target.value);
-	}
-
-	render : function () {
+	display : function () {
 		var self = this;
+		var translator = serviceLocator.get('Translator');
 		var options = this._template.getOptions();
 		var values = options['values'];
 
-		return <div className="form">
-			<span className="label">{this._template.getLabel()}</span>
+		return <div className="inputForm">
+			<span className="label">{translator.translate(this._template.getLabel())}</span>
 			<select defaultValue={this._template.getValue()} onChange={this.changeValue.bind(this)}>
 				{Object.keys(values).map(function (i) {
-					return <option value={i}>{values[i]}</option>
+					return <option value={i}>{translator.translate(values[i])}</option>
 				})}
 			</select>
 		</div>;

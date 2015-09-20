@@ -3,12 +3,23 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-15 23:54:39
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-20 00:55:12
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 23:28:32
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 10:39:44
 **************************************************************/
 
-@import "vars/all";
-@import "global";
+class ElementDataMinusDateNowValidator extends MasterValidator {
+
+	public isValid : function (value) {
+		var date = new Date(value);
+		var dateNow = new Date();
+
+		if (date < dateNow)
+			return true;
+		this.setMessage('form.validator.min_date_now');
+		return false;
+	}
+
+}

@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-17 18:46:49
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 11:32:38
 **************************************************************/
 
 class ElementDataFieldsetForm extends MasterFormFieldset {
@@ -44,11 +44,22 @@ class ElementDataFieldsetForm extends MasterFormFieldset {
 		return elementsDisplay;
 	}
 
+	public getElementsInput : function () {
+		var elementsInput = _super();
+
+		elementsInput['id'] = this.getIdInput();
+		elementsInput['parentid'] = this.getParentidInput();
+		elementsInput['creationdate'] = this.getCreationdateInput();
+		elementsInput['updatedate'] = this.getUpdatedateInput();
+
+		return elementsInput;
+	}
+
 	public getIdDisplay : function () {
 		if (this['_idDisplay'] == undefined) {
 			this['_idDisplay'] = {};
 			this['_idDisplay']['type'] = 'Text';
-			this['_idDisplay']['label'] = 'Id';
+			this['_idDisplay']['label'] = 'form.input.element.id';
 		}
 		return this['_idDisplay'];
 	}
@@ -57,7 +68,7 @@ class ElementDataFieldsetForm extends MasterFormFieldset {
 		if (this['_parentidDisplay'] == undefined) {
 			this['_parentidDisplay'] = {};
 			this['_parentidDisplay']['type'] = 'Text';
-			this['_parentidDisplay']['label'] = 'Parent id';
+			this['_parentidDisplay']['label'] = 'form.input.element.parent_id';
 		}
 		return this['_parentidDisplay'];
 	}
@@ -66,7 +77,7 @@ class ElementDataFieldsetForm extends MasterFormFieldset {
 		if (this['_creationdateDisplay'] == undefined) {
 			this['_creationdateDisplay'] = {};
 			this['_creationdateDisplay']['type'] = 'Text';
-			this['_creationdateDisplay']['label'] = 'Creation date';
+			this['_creationdateDisplay']['label'] = 'form.input.element.creation_date';
 		}
 		return this['_creationdateDisplay'];
 	}
@@ -75,9 +86,78 @@ class ElementDataFieldsetForm extends MasterFormFieldset {
 		if (this['_updatedateDisplay]'] == undefined) {
 			this['_updatedateDisplay'] = {};
 			this['_updatedateDisplay']['type'] = 'Text';
-			this['_updatedateDisplay']['label'] = 'UpdateDate';
+			this['_updatedateDisplay']['label'] = 'form.input.element.update_date';
 		}
 		return this['_updatedateDisplay'];
+	}
+
+	public getIdInput : function () {
+		if (this['_idInput'] == undefined) {
+			this['_idInput'] = {};
+
+			this['_idInput']['required'] = false;
+
+			this['_idInput']['filters'] = [];
+			this['_idInput']['filters'][0] = {}
+			this['_idInput']['filters'][0]['name'] = 'Trim';
+			this['_idInput']['filters'][1] = {}
+			this['_idInput']['filters'][1]['name'] = 'Int';
+		}
+		return this['_idInput'];
+	}
+
+	public getParentidInput : function () {
+		if (this['_parentidInput'] == undefined) {
+			this['_parentidInput'] = {};
+
+			this['_parentidInput']['required'] = false;
+
+			this['_parentidInput']['filters'] = [];
+			this['_parentidInput']['filters'][0] = {}
+			this['_parentidInput']['filters'][0]['name'] = 'Trim';
+			this['_parentidInput']['filters'][1] = {}
+			this['_parentidInput']['filters'][1]['name'] = 'Int';
+		}
+		return this['_parentidInput'];
+	}
+
+	public getCreationdateInput : function () {
+		if (this['_creationdateInput'] == undefined) {
+			this['_creationdateInput'] = {};
+
+			this['_creationdateInput']['required'] = false;
+
+			this['_creationdateInput']['filters'] = [];
+			this['_creationdateInput']['filters'][0] = {}
+			this['_creationdateInput']['filters'][0]['name'] = 'Trim';
+
+			this['_creationdateInput']['validators'] = [];
+			this['_creationdateInput']['validators'][0] = {};
+			this['_creationdateInput']['validators'][0]['name'] = 'MinusDateNow';
+
+		}
+		return this['_creationdateInput'];
+	}
+
+	public getUpdatedateInput : function () {
+		if (this['_updatedateInput'] == undefined) {
+			this['_updatedateInput'] = {};
+
+			this['_updatedateInput']['required'] = false;
+
+			this['_updatedateInput']['filters'] = [];
+			this['_updatedateInput']['filters'][0] = {}
+			this['_updatedateInput']['filters'][0]['name'] = 'Trim';
+
+			this['_updatedateInput']['validators'] = [];
+			this['_updatedateInput']['validators'][0] = {}
+			this['_updatedateInput']['validators'][0]['name'] = 'MinusDateNow';
+			this['_updatedateInput']['validators'][1] = {}
+			this['_updatedateInput']['validators'][1]['name'] = 'MoreDate';
+			this['_updatedateInput']['validators'][1]['options'] = {};
+			this['_updatedateInput']['validators'][1]['options']['target'] = 'creationdate';
+		}
+		return this['_updatedateInput'];
 	}
 
 }
