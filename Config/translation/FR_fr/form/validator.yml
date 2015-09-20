@@ -1,0 +1,15 @@
+###############################################################
+#     ####         #                               #          # Jobuzzle - Copyright All rights reserved
+#     ####         #                               #          #
+#       ##  #####  ######  #     # ####### ####### #  #####   # @Author: revers
+#       ## #     # #     # #     #      #       #  # #     #  #
+#       ## #     # #     # #     #     #       #   # #     #  # @Date:   2015-09-20 10:32:42
+#       ## #     # #     # #     #    #       #    # #     #  #
+#       ## #     # #     # #     #   #       #     # ######   # @Last Modified by:   revers
+#  ####### #     # #     # #     #  #       #      # #        #
+#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-09-20 10:50:03
+###############################################################
+
+is_required : 'Champs obligatoire'
+min_date_now : "La date n'est pas encore passée"
+date_bigger_target : "Merci d'entrer une date qui respecte les dépendances"

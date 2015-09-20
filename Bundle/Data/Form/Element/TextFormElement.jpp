@@ -7,9 +7,9 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:44:59
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 01:46:49
 **************************************************************/
 
-class TextFormElement extends MasterElement {
+class TextFormElement extends MasterFormElement {
 	_viewClassName = 'TextFormElementView';
 }

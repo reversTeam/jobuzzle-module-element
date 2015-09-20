@@ -7,12 +7,15 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 16:50:06
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 14:47:30
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
 
-	public _inputs = {};
+	initialize : function () {
+		_super();
+		this['_inputs'] = {};
+	}
 
 	initialState : function () {
 		return {
@@ -36,33 +39,101 @@ class CreateFormHelperView extends MasterHelperView {
 		this.setState({ loader : false });
 	}
 
+	validated : function (element, input) {
+		var validators = input['validators'];
+		var required = input['required'] ? input['required'] : false;
+		if (!element.getValue() && required == true) {
+			element.addMessage('form.validator.is_required');
+			return false;
+		}
+		else if (validators == undefined || (!element.getValue() && required == false))
+			return true;
+		var validated = true;
+		element.resetMessages();
+		var validatorManager = serviceLocator.get('ValidatorManager');
+		for (var i in validators) {
+			var validator = validatorManager.get(validators[i]['name']);
+			validator.setOptions(validators[i]['options']);
+			validator.setElement(element);
+			validator.setContext(this['_inputs']);
+			if (!validator.isValid(element.getValue()))
+				validated = false;
+		}
+		return validated;
+	}
+
+	filtered : function (element, filters) {
+		if (filters == undefined)
+			return ;
+		var filterManager = serviceLocator.get('FilterManager');
+		for (var i in filters) {
+			var filter = filterManager.get(filters[i]['name']);
+			filter.setOptions(filters[i]['options']);
+			filter.filtered(element);
+		}
+	}
+
+	filteredAll : function (inputs) {
+		var form = this._template.getForm();
+		var inputs = form.getElementsInput();
+
+		for (var i in this['_inputs']) {
+			var formElement = this['_inputs'][i];
+
+			if (inputs[formElement.getTarget()] != undefined)
+				this.filtered(formElement, inputs[formElement.getTarget()]['filters']);
+		}
+	}
+
+	validatedAll : function (params) {
+		var entity = this._template.getEntity();
+		var form = this._template.getForm();
+		var inputs = form.getElementsInput();
+		var error = false;
+
+		for (var i in this['_inputs']) {
+			var formElement = this['_inputs'][i];
+			var input = inputs[formElement.getTarget()];
+			var getter = 'get' + formElement.getTarget()[0].toUpperCase() + formElement.getTarget().substr(1, formElement.getTarget().length - 1);
+
+			// TODO : REMOVE AFTER ACCESS CHECK
+			if (( !entity || (entity && formElement.getValue() != entity[getter]()) ) && ( formElement.getValue() != '' && formElement.getValue() != undefined )) {
+				if (inputs[formElement.getTarget()] == undefined 
+					|| this.validated(formElement, input)) {
+					params[formElement.getTarget()] = formElement.getValue();
+					formElement.hideError();
+				} else {
+					formElement.showError();
+					error = true;
+				}
+			}
+		}
+		return error;
+	}
+
 	sendForm : function (e) {
 		e.stopPropagation();
 		e.preventDefault();
-		this.setState({ loader : true });
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var router = serviceLocator.get('Router');
 		var form = this._template.getForm();
 		var params = {};
 		var entity = this._template.getEntity();
 		
-		for (var i in this['_inputs']) {
-			var formElement = this['_inputs'][i];
-			var getter = 'get' + formElement.getTarget()[0].toUpperCase() + formElement.getTarget().substr(1, formElement.getTarget().length - 1);
-			if (( !entity || (entity && formElement.getValue() != entity[getter]()) )
-				&& ( formElement.getValue() != '' && formElement.getValue() != undefined ))
-				params[formElement.getTarget()] = formElement.getValue();
-		}
+		this.filteredAll();		
 
-		if (form.getParamNameRoute && typeof form.getParamNameRoute == 'function') {
-			var paramsRoute = {};
-			paramsRoute[form.getParamNameRoute()] = entity.getId();
-			var url = router.build(form.getUrl(), paramsRoute);
-		} else {
-			var url = router.build(form.getUrl());
+		if (!this.validatedAll(params)) {
+			if (form.getParamNameRoute && typeof form.getParamNameRoute == 'function') {
+				var paramsRoute = {};
+				paramsRoute[form.getParamNameRoute()] = entity.getId();
+				var url = router.build(form.getUrl(), paramsRoute);
+			} else {
+				var url = router.build(form.getUrl());
 
+			}
+			this.setState({ loader : true });
+			store.request(url, params, this.disabledLoader.bind(this));
 		}
-		store.request(url, params, this.disabledLoader.bind(this));
 	}
 
 	render : function () {
@@ -71,17 +142,18 @@ class CreateFormHelperView extends MasterHelperView {
 		var entity = this._template.getEntity();
 		var inputs = form.getElementsDisplay();
 		var sendButton = form.getSendButton();
+		var translator = serviceLocator.get('Translator');
 		sendButton['namespace'] = form.getFormName();
 
-		self.getFormElement('Button', sendButton, 'send')
+		self.getFormElement('Button', sendButton, 'send');
 
 		return <form onSubmit={this.sendForm.bind(this)} method="POST">
 			<fieldset>
-				<legend>{form.getTitle()}</legend>
+				<legend>{translator.translate(form.getTitle())}</legend>
 				{Object.keys(inputs).map(function(i) {
 					inputs[i]['namespace'] = form.getFormName();
-					var element = self.getFormElement(inputs[i]['type'], inputs[i], i);
-					var input = self.getFormElementTemplate(inputs[i]['type'], form.getFormName(), i);
+					var element = self.getFormElement(inputs[i]['type'], form.getTypeForm(), inputs[i], i);
+					var input = self.getFormElementTemplate(inputs[i]['type'], form.getTypeForm(), form.getFormName(), i);
 
 					var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
 					if (entity && typeof entity[getter] == 'function')
@@ -94,7 +166,7 @@ class CreateFormHelperView extends MasterHelperView {
 				<div className="sendFormContainer">{ 
 					this.state.loader 
 						? self.getTemplate('navigation_loader_main_template')
-						: self.getFormElement('Button', sendButton, 'send')
+						: self.getFormElement('Button', form.getTypeForm(), sendButton, 'send')
 				}</div>
 			</fieldset>
 		</form>;

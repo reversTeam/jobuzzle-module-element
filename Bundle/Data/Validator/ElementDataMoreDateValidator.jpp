@@ -1,0 +1,31 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-20 01:00:01
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 10:44:21
+**************************************************************/
+
+class ElementDataMoreDateValidator extends MasterValidator {
+
+
+	public isValid : function (value) {
+		var options = this.getOptions();
+		if (options == undefined || options['target'] == undefined)
+			throw "You don't specified target for the validator";
+		var target = this.getInput(options['target']);
+		var dateElement = new Date(value);
+		var dateTarget = new Date(target.getValue());
+
+		if (dateElement >= dateTarget)
+			return true;
+		this.setMessage('form.validator.date_bigger_target');
+		return false;
+	}
+
+
+}
