@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 19:59:44
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 16:43:01
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -27,7 +27,7 @@ class ElementDataMainEntity extends MasterEntity {
 		this.views = {};
 	}
 
-	isMe : function () {
+	public isMe : function () {
 		return false;
 	}
 
@@ -63,11 +63,11 @@ class ElementDataMainEntity extends MasterEntity {
 		return (params == '' || this.getId() == params);
 	}
 
-	displayTimeline : function (params) {
+	public displayTimeline : function (params) {
 		return this.getTemplate(this['_templateTimeline']);
 	}
 
-	displayMiniature : function () {
+	public displayMiniature : function () {
 		return this.getTemplate(this['_templateMiniature']);
 	}
 

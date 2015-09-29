@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 14:47:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-29 10:45:45
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -131,6 +131,7 @@ class CreateFormHelperView extends MasterHelperView {
 				var url = router.build(form.getUrl());
 
 			}
+			console.debug(params);
 			this.setState({ loader : true });
 			store.request(url, params, this.disabledLoader.bind(this));
 		}
