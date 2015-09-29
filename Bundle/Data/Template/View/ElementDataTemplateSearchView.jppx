@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-23 12:47:18
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-29 18:31:47
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -62,12 +62,13 @@ class ElementDataTemplateSearchView extends FormView {
 		var self = this;
 		var translator = serviceLocator.get('Translator');
 		var loader = null;
+		var className = 'entities search '+ this.getClass();
 
 		if (this.state['loader']) {
 			loader = this.getTemplate('navigation_loader_main_template');
 		}
 
-		return (<div className='entities' key={this.props.key}>
+		return (<div className={className} key={this.props.key}>
 			<div className="more-actions-filter">
 				<input type="text" placeholder={translator.translate('global.Search')}  onKeyUp={this.searchRefesh.bind(this)} />
 				<i className="fa fa-sliders"></i>
