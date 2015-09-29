@@ -7,38 +7,50 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:15:26
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-23 12:47:18
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
 
-	_class = 'element';
-	_elementType = 'Element';
-
-	#default get for _class;
-	#default get for _elementType;
+	public _class = 'element';
+	public _elementType = 'Element';
 
 	initialize : function () {
 		_super();
 		this['_template'].getNext();
 	}
 
+	public getElementType : function () {
+		return this['_elementType'];
+	}
+
+	public getClass : function () {
+		return this['_class'];
+	}
+
+	public setElementType : function (elementType) {
+		this['_elementType'] = elementType;
+
+		return this;
+	}
+
 	public initialState : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		return ({
 			'loader' : true,
-			'entities' : store.getAll(this.getElementType())._entity,
+			'entities' : store['getAll'](this['getElementType']())['_entity'],
 			'search' : ''
 		});
 	}
 
 	public update : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
-		if (this.isMounted())
-			this['setState']({ 'entities' : store.getAll(this.getElementType())._entity });
+		if (this['isMounted']()) {
+			this['setState']({ 'entities' : store['getAll'](this['getElementType']())['_entity'] });
+		}
 	}
 
-	searchRefesh	 : function (e) {
+	searchRefesh : function (e) {
 		this['setState']({ 'search' : e.target.value });
 	}
 
@@ -51,7 +63,7 @@ class ElementDataTemplateSearchView extends FormView {
 		var translator = serviceLocator.get('Translator');
 		var loader = null;
 
-		if (this.state.loader) {
+		if (this.state['loader']) {
 			loader = this.getTemplate('navigation_loader_main_template');
 		}
 
@@ -61,11 +73,11 @@ class ElementDataTemplateSearchView extends FormView {
 				<i className="fa fa-sliders"></i>
 				<i className="fa fa-trash"></i>
 			</div>
-			{Object.keys(this.state.entities).map(function (i) {
-				if (self.state.entities[i].isMe() || !self.state.entities[i].search(self.state.search))
+			{Object.keys(this.state['entities']).map(function (i) {
+				if (self.state['entities'][i]['isMe']() || !self.state['entities'][i]['search'](self.state['search']))
 					return null;
 				return (<div className="entity" key={i}>
-					{self.state.entities[i].displayTimeline()}
+					{self.state['entities'][i]['displayTimeline']()}
 				</div>);
 			})}
 			<div className="loader_entities">

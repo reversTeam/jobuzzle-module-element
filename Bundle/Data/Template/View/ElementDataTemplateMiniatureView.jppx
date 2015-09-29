@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 13:22:36
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 17:59:02
 **************************************************************/
 
 class ElementDataTemplateMiniatureView extends ContentView {
@@ -24,7 +24,7 @@ class ElementDataTemplateMiniatureView extends ContentView {
 
 	public display : function () {
 		return (
-			<div>{this.state.entity.getId() +' : '+ this.state.entity.getType()}</div>
+			<div>{this.state['entity']['getId']() +' : '+ this.state['entity']['getType']()}</div>
 		);
 	}
 

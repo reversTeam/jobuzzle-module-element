@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-19 15:56:47
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-23 12:42:47
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -54,6 +54,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		if (this._view['setState'])
 			this._view['setState']({ 'loader' : true });
 		this.wait = true;
+
 		store.request(router.build('/'+ this.getRoute()), params, function (data) {
 			self.end = !data.result.length;
 			self.wait = false;
