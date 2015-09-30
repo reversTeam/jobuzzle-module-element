@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-23 12:42:47
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-01 00:04:25
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -24,15 +24,21 @@ class ElementDataSearchTemplate extends FormTemplate {
 	end = false;
 	limit = 50;
 	offset = 0;
+	createElement = false;
 
 	public onListen : function () {
 		var dispatcher = _super();
 
-		dispatcher.listen('Store:'+ this.getType() +':create', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +':create', this, this.create.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':remove', this, this.update.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom98', this, this.getNext.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom100', this, this.getNext.bind(this));
+	}
+
+	public create : function () {
+		this.createElement = true;
+		this.update();
 	}
 
 	public update : function () {
@@ -60,6 +66,10 @@ class ElementDataSearchTemplate extends FormTemplate {
 			self.wait = false;
 			self._view['setState']({ 'loader' : false });
 			self.offset += self.limit;
+			if (!self.createElement)
+				self.getNext();
+			else
+				self.createElement = false;
 		});
 	}
 
