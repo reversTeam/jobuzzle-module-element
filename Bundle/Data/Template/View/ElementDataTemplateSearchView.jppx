@@ -7,14 +7,14 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 19:33:57
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 20:46:30
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
 
 	public _class = 'element';
 	public _elementType = 'Element';
-	public _displayNbEntity = 50;
+	public _displayNbEntity = 100;
 
 	public getElementType : function () {
 		return this['_elementType'];
