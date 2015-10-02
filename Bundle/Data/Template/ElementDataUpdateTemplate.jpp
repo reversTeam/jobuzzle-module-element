@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-29 10:20:07
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:11:30
 **************************************************************/
 
 class ElementDataUpdateTemplate extends FormTemplate {
@@ -57,6 +57,7 @@ class ElementDataUpdateTemplate extends FormTemplate {
 
 	changeEntity : function (trigger, datas) {
 		if (datas['entity'] && this._view && this._view.setEntity) {
+			this.setReady(true);
 			this.getService().changeTitleView(datas['entity']);
 			this.setEntityView(datas['entity']);
 		} else if (datas['entity']) {

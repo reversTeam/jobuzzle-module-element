@@ -7,13 +7,14 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 21:46:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:29:47
 **************************************************************/
 
 class ElementDataTimelineTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateTimelineView';
 	_entity = undefined;
+	_hasLoader = false;
 
 	#default get, set for _entity;
 

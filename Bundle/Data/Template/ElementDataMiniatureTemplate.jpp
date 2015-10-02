@@ -7,13 +7,14 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 21:46:07
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:30:13
 **************************************************************/
 
 class ElementDataMiniatureTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateMiniatureView';
 	_entity = undefined;
+	public _hasLoader = false;
 
 	#default get, set for _entity;
 

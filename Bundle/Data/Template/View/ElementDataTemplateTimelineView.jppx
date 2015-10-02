@@ -7,20 +7,24 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-12 13:23:06
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 17:32:17
 **************************************************************/
 
 class ElementDataTemplateTimelineView extends ContentView {
 
 	public initialState : function () {
-		return {
-			'entity' : this['_template']._entity
-		};
+		var states = {};
+		states['entity'] = this['_template']._entity;
+		return states;
 	}
 
 	public update : function () {
-		if (this.isMounted())
-			this['setState']({ 'entity' : this['_template']._entity });
+		if (this.isMounted()) {
+			this['setState']({
+				'entity' : this['_template']._entity,
+				'isReady' : true
+			});
+		}
 	}
 
 	public display : function () {

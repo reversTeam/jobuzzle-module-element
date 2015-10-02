@@ -7,11 +7,12 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-08-08 14:30:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:30:28
 **************************************************************/
 
 class ElementDataDeleteTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateDeleteView';
+	public _hasLoader = false;
 
 }
