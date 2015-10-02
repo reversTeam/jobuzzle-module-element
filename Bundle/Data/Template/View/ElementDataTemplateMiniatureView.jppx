@@ -7,19 +7,25 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 17:59:02
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 14:53:48
 **************************************************************/
 
 class ElementDataTemplateMiniatureView extends ContentView {
 
 	public initialState : function () {
-		return {
-			'entity' : this['_template']._entity
-		};
+		var states = {};
+		states['entity'] = this['_template']._entity;
+		return states;
 	}
 
 	public update : function () {
-		this['setState']({ 'entity' : this['_template']._entity });
+		console.debug('TOTO AIME LES CAROTTES');
+		if (this.isMounted()) {
+			console.debug('TOTO AIME LES CAROTTES');
+			this['setState']({
+				'entity' : this['_template']._entity
+			});
+		}
 	}
 
 	public display : function () {

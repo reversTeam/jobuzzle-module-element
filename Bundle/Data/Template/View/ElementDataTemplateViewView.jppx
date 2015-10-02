@@ -7,15 +7,15 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-29 10:10:50
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 14:57:34
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
 
 	public initialState : function () {
-		return {
-			'entity' : this['_template']['_entity']
-		}
+		var states = {};
+		states['entity'] = this['_template']['_entity'];
+		return states;
 	}
 
 	public setEntity : function (entity) {
@@ -26,7 +26,7 @@ class ElementDataTemplateViewView extends ContentView {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		if (this.isMounted()) {
 			if (id)
-				this['setState']({ 'entity' : store.get(id) });
+				this['setState']({ 'entity' : store.get(id), 'isReady' : true });
 			else
 				this['setState']({ 'entity' : undefined });
 		}

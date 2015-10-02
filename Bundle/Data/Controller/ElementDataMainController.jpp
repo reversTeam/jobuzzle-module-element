@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-29 10:20:47
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-01 19:27:07
 **************************************************************/
 
 class ElementDataMainController extends MasterController {
@@ -17,6 +17,10 @@ class ElementDataMainController extends MasterController {
 	_url = 'element';
 
 	#default get for _translationFile;
+
+	changeParent : function (trigger, datas) {
+		this.setParentEntity(datas['entity']);
+	}
 
 	public search : function (params) {
 		this.getService().search(params);

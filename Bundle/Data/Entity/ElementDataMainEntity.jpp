@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 16:43:01
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-01 14:33:53
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -41,10 +41,29 @@ class ElementDataMainEntity extends MasterEntity {
 			this.setUpdatedate(datas['updatedate']);
 	}
 
-	getParent : function () {
-		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+	public getElementEntity : function (entityId) {
+		var serviceManager = serviceLocator.get('ServiceManager');
+		var store = serviceManager.get('store_manager_main_service');
+		var elementCollection = store.getCollection('Element');
+		var entity = elementCollection.get(entityId);
 
-		return store.get(this.getParentid());
+		if (!entity) {
+			var router = serviceLocator.get('Router');
+
+			store.request(router.build('/element/view', { 'element_id' : entityId }), {}, function (datas) {
+				var element = datas['result'][0];
+				if (element['type'] == 'Element')
+					return ;
+				var serviceEntity = serviceManager.get(element['type'].toLowerCase() +'_data_main_service');
+				serviceEntity['getElementEntity'](element['id']);
+			});
+		}
+
+		return entity;
+	}
+
+	getParent : function () {
+		return this.getElementEntity(this.getParentid());
 	}
 
 	getTemplate : function (templateName) {
