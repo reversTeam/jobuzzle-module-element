@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:11:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:50:25
 **************************************************************/
 
 class ElementDataUpdateTemplate extends FormTemplate {
@@ -20,7 +20,7 @@ class ElementDataUpdateTemplate extends FormTemplate {
 	public onListen : function () {
 		var dispatcher = _super();
 
-		dispatcher.listen(this.getType() +':load:entity', this, this.changeEntity.bind(this));
+		dispatcher.listen(this.getType().toLowerCase() +':load:entity', this, this.changeEntity.bind(this));
 
 		return dispatcher;
 	}

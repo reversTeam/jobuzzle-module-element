@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-01 20:53:45
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:50:19
 **************************************************************/
 
 class ElementDataMainService extends MasterService {
@@ -37,7 +37,7 @@ class ElementDataMainService extends MasterService {
 	onListen : function () {
 		var dispatcher = _super();
 
-		dispatcher.listen('Router:setParentEntity:'+ this.getEntityType(), this, this.changeParent.bind(this));
+		dispatcher.listen('Router:setParentEntity:'+ this.getType(), this, this.changeParent.bind(this));
 
 		return dispatcher;
 	}
@@ -52,7 +52,7 @@ class ElementDataMainService extends MasterService {
 		var translator = serviceLocator.get('Translator');
 		var title = translator.translate(this.getType() +'.'+ this.getTitle());
 		if (str)
-		 title += ' - '+ translator.translate(str, params);
+			title += ' - '+ translator.translate(str, params);
 		this._titleService.changeTitle(title);
 	}
 
@@ -90,7 +90,7 @@ class ElementDataMainService extends MasterService {
 		this.changeTitleView(entity);
 		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_view_template'});
 
-		dispatcher.trigger(this.getEntityType() +':load:entity', { 'entity' : entity });
+		dispatcher.trigger(this.getEntityType().toLowerCase() +':load:entity', { 'entity' : entity });
 	}
 
 	public update : function (entity) {
@@ -99,7 +99,7 @@ class ElementDataMainService extends MasterService {
 		this.changeTitleUpdate(entity);
 		dispatcher.trigger('Body:Content:change', {'content' : this.getType() +'_data_update_template'});
 
-		dispatcher.trigger(this.getEntityType() +':load:entity', { 'entity' : entity });
+		dispatcher.trigger(this.getEntityType().toLowerCase() +':load:entity', { 'entity' : entity });
 	}
 
 	public remove : function () {

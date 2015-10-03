@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 14:57:34
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 18:22:44
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
@@ -20,6 +20,18 @@ class ElementDataTemplateViewView extends ContentView {
 
 	public setEntity : function (entity) {
 		this['setState']({ 'entity' : entity });
+	}
+
+	public getUrlEdit : function () {
+		var entity = this.state['entity'];
+		var router = serviceLocator.get('Router');
+		var url = '';
+
+		if (entity != undefined) {
+			url = router.entityRoute(entity, 'update');
+		}
+
+		return url;
 	}
 
 	public update : function (id) {

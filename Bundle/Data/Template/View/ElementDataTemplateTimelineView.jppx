@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 17:32:17
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 02:17:13
 **************************************************************/
 
 class ElementDataTemplateTimelineView extends ContentView {
@@ -25,6 +25,13 @@ class ElementDataTemplateTimelineView extends ContentView {
 				'isReady' : true
 			});
 		}
+	}
+
+	getUrl : function () {
+		var router = serviceLocator.get('Router');
+		var entity = this.state['entity'];
+
+		return router.entityRoute(entity);
 	}
 
 	public display : function () {

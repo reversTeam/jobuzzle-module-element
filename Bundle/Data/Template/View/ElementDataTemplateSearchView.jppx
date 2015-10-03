@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 20:46:30
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 20:15:15
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -34,7 +34,7 @@ class ElementDataTemplateSearchView extends FormView {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var states = {};
 		states['loader'] = true;
-		states['entities'] = store['getAll'](this['getElementType']())['filterByParent'](this._template.getService().getParentEntity());
+		states['entities'] = store['getAll'](this['getElementType']())['filterByParentEntityRoute'](this._template.getService().getParentEntity());
 		states['search'] = '';
 		states['displayNbEntity'] = 0;
 		return states;
@@ -43,7 +43,7 @@ class ElementDataTemplateSearchView extends FormView {
 	public update : function () {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		if (this['isMounted']()) {
-			this['setState']({ 'entities' : store['getAll'](this['getElementType']())['filterByParent'](this._template.getService().getParentEntity()) });
+			this['setState']({ 'entities' : store['getAll'](this['getElementType']())['filterByParentEntityRoute'](this._template.getService().getParentEntity()) });
 		}
 	}
 
@@ -58,27 +58,20 @@ class ElementDataTemplateSearchView extends FormView {
 		});
 	}
 
-	public display : function () {
+	public getEntities : function () {
 		var self = this;
-		var translator = serviceLocator.get('Translator');
-		var loader = null;
-		var className = 'entities search '+ this.getClass();
-		var router = serviceLocator.get('Router');
 		var n = 0;
 		var display = false;
-		var displayNbEntity = this.state['displayNbEntity'];
-
-		if (this.state['loader'])
-			loader = this.getTemplate('navigation_loader_main_template');
-
-		var entities = this.state['entities'];
 		var elems = [];
+		var entities = this.state['entities'];
+		var displayNbEntity = this.state['displayNbEntity'] + self._displayNbEntity;
+
 		for (var i in entities) {
-			if (++n > (displayNbEntity + self._displayNbEntity)) {
+			if (++n > displayNbEntity) {
 				if (!display) {
 					display = true;
 					setTimeout(function () {
-						self.setState({ 'displayNbEntity' : displayNbEntity + self._displayNbEntity });
+						self.setState({ 'displayNbEntity' : displayNbEntity });
 					}, 10);
 				}
 				break ;
@@ -87,6 +80,20 @@ class ElementDataTemplateSearchView extends FormView {
 				elems.push(<div className="entity" key={i}>{entities[i]['displayTimeline']()}</div>);
 		}
 
+		return elems;
+	}
+
+	public display : function () {
+		var translator = serviceLocator.get('Translator');
+		var loader = null;
+		var className = 'entities search '+ this.getClass();
+		var router = serviceLocator.get('Router');
+		var entities = [];
+
+		if (this.state['loader'])
+			loader = this.getTemplate('navigation_loader_main_template');
+
+		entities = this.getEntities();
 		return (<div className={className} key={this.props.key}>
 			<div className="more-actions-filter">
 				<input type="text" placeholder={translator.translate('global.Search')}  onKeyUp={this.searchRefesh.bind(this)} />
@@ -94,7 +101,7 @@ class ElementDataTemplateSearchView extends FormView {
 				<i className="fa fa-trash"></i>
 				<i className="fa fa-plus" onClick={this.link} data-url={router.build('/'+ this.getClass() +'/create')}></i>
 			</div>
-			{elems}
+			{entities}
 			<div className="loader_entities">
 				{loader}
 			</div>
