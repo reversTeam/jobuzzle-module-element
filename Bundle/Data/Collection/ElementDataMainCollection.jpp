@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 11:14:45
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:56:09
 **************************************************************/
 
 class ElementDataMainCollection extends MasterCollection {
@@ -40,6 +40,22 @@ class ElementDataMainCollection extends MasterCollection {
 				entities[i] = this['_entity'][i];
 		}
 		return entities;
+	}
+
+	filterByParentidEntityRoute : function (id) {
+		var entities = {};
+		for (var i in this['_entity']) {
+			if (this['_entity'][i]['getParentidEntityRoute']() == id)
+				entities[i] = this['_entity'][i];
+		}
+		return entities;
+	}
+
+	filterByParentEntityRoute: function (parent) {
+		if (!parent) {
+			return this['_entity'];
+		}
+		return this.filterByParentidEntityRoute(parent.getId());
 	}
 
 	filterByParent : function (parent) {

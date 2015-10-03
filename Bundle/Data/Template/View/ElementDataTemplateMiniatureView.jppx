@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 14:53:48
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 21:21:36
 **************************************************************/
 
 class ElementDataTemplateMiniatureView extends ContentView {
@@ -19,9 +19,7 @@ class ElementDataTemplateMiniatureView extends ContentView {
 	}
 
 	public update : function () {
-		console.debug('TOTO AIME LES CAROTTES');
 		if (this.isMounted()) {
-			console.debug('TOTO AIME LES CAROTTES');
 			this['setState']({
 				'entity' : this['_template']._entity
 			});

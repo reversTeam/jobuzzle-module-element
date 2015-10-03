@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 21:19:01
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:54:06
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -44,14 +44,14 @@ class ElementDataSearchTemplate extends FormTemplate {
 	}
 
 	public showSearch : function (trigger, datas) {
-		this.update();
 		var parentEntity = this.getService().getParentEntity();
 		var params = this.getPaginator(parentEntity);
-		if ((datas && params['offset'] > 0)) {
+
+		if (!params['wait'] && this.getVisibility())
 			this.setReady(true);
-			return ;
-		}
-		this.getNext();
+		if (!(datas && params['offset'] > 0))
+			this.getNext();
+		this.update();
 	}
 
 	public create : function () {
@@ -84,6 +84,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var router = serviceLocator.get('Router');
 		var parentEntity = this.getService().getParentEntity();
 		var params = this.getPaginator(parentEntity);
+
 		if (params['wait'] || params['end'] || !this.getVisibility())
 			return ;
 
@@ -96,12 +97,11 @@ class ElementDataSearchTemplate extends FormTemplate {
 		else
 			var route = router.build('/'+ this.getRoute());
 		store.request(route, params, function (data) {
-			self.end = !data.result.length;
+			params['end'] = !data.result.length;
 			params['wait'] = false;
 			self._view['setState']({ 'loader' : false });
-			self.setReady(true);
 			params['offset'] += params['limit'];
-			if (!self.createElement)
+			if (!self.createElement && !params['end'])
 				self.getNext();
 			else
 				self.createElement = false;

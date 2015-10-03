@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-01 14:33:53
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 19:28:40
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -80,6 +80,14 @@ class ElementDataMainEntity extends MasterEntity {
 
 	search : function (params) {
 		return (params == '' || this.getId() == params);
+	}
+
+	public getParentEntityRoute : function () {
+		return this.getParent();
+	}
+
+	public getParentidEntityRoute : function () {
+		return this.getParentid();
 	}
 
 	public displayTimeline : function (params) {
