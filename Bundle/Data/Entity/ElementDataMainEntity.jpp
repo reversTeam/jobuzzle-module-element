@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 01:12:20
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 02:52:50
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -99,7 +99,7 @@ class ElementDataMainEntity extends MasterEntity {
 	}
 
 	public displayMiniature : function () {
-		if (this['_templateMiniatureView'])
+		if (!this['_templateMiniatureView'])
 			this['_templateMiniatureView'] = this.getTemplate(this['_templateMiniature']);
 		return this['_templateMiniatureView'];
 	}
