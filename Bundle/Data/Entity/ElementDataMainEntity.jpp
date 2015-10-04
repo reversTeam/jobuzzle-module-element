@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 19:28:40
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 01:12:20
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -16,6 +16,8 @@ class ElementDataMainEntity extends MasterEntity {
 
 	public _templateTimeline = 'element_data_timeline_template';
 	public _templateMiniature = 'element_data_miniature_template';
+	public _templateTimelineView = undefined;
+	public _templateMiniatureView = undefined;
 
 	initialize : function () {
 		_super();
@@ -91,11 +93,15 @@ class ElementDataMainEntity extends MasterEntity {
 	}
 
 	public displayTimeline : function (params) {
-		return this.getTemplate(this['_templateTimeline']);
+		if (!this['_templateTimelineView'])
+			this['_templateTimelineView'] = this.getTemplate(this['_templateTimeline']);
+		return this['_templateTimelineView'];
 	}
 
 	public displayMiniature : function () {
-		return this.getTemplate(this['_templateMiniature']);
+		if (this['_templateMiniatureView'])
+			this['_templateMiniatureView'] = this.getTemplate(this['_templateMiniature']);
+		return this['_templateMiniatureView'];
 	}
 
 	public getParentid : function () {

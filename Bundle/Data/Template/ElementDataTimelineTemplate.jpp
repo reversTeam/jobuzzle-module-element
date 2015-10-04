@@ -7,25 +7,29 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:29:47
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 02:15:40
 **************************************************************/
 
 class ElementDataTimelineTemplate extends ContentTemplate {
 
-	_viewClassName = 'ElementDataTemplateTimelineView';
-	_entity = undefined;
-	_hasLoader = false;
+	public _viewClassName = 'ElementDataTemplateTimelineView';
+	public _type = 'Element';
+	public _entity = undefined;
+	public _hasLoader = false;
 
 	#default get, set for _entity;
+	#default get for _type;
 
 	public onListen : function () {
 		var dispatcher = _super();
+
+		dispatcher.listen('Timeline:'+ this.getType() +':resize', this, this.update.bind(this));
 
 		return dispatcher;
 	}
 
 	public update : function () {
-		if (this.getVisibility())
+		if (this.getVisibility() && this._view && typeof this._view.update == 'function')
 			this._view.update();
 	}
 
