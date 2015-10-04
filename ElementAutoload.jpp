@@ -7,11 +7,17 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-15 22:39:24
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 02:09:32
 **************************************************************/
 
 class ElementAutoload extends MasterAutoload {
 
 	confModuleName = 'Element';
+
+	initialize : function () {
+		_super();
+
+		serviceLocator.get('ServiceManager').get(this.confModuleName.toLowerCase() +'_data_main_service');
+	}
 
 }

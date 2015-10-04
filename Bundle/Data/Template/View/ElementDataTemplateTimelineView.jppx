@@ -7,10 +7,18 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 02:17:13
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 01:54:34
 **************************************************************/
 
 class ElementDataTemplateTimelineView extends ContentView {
+
+	_searchTemplate = undefined;
+
+	public getSearchTemplate : function () {
+		if (!this._searchTemplate)
+			this._searchTemplate = serviceLocator.get('TemplateManager').get(this._template.getType().toLowerCase() +'_data_search_template');
+		return this._searchTemplate;
+	}
 
 	public initialState : function () {
 		var states = {};
@@ -20,6 +28,7 @@ class ElementDataTemplateTimelineView extends ContentView {
 
 	public update : function () {
 		if (this.isMounted()) {
+			var searchTemplate = this.getSearchTemplate();
 			this['setState']({
 				'entity' : this['_template']._entity,
 				'isReady' : true

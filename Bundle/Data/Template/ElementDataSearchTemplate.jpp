@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:54:06
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 02:11:59
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -16,6 +16,15 @@ class ElementDataSearchTemplate extends FormTemplate {
 	_serviceName = 'element_data_main_service';
 	_type = 'Element';
 	_route = 'element';
+
+
+	public _resizable = true;
+	public entityWidth = 140;
+	public entityHeight = 166;
+	public margeEntity = 10;
+
+	public _entityWidth = undefined;
+	public _entityHeight = undefined;
 
 	#default get for _type;
 	#default get for _route;
@@ -39,8 +48,41 @@ class ElementDataSearchTemplate extends FormTemplate {
 		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':remove', this, this.update.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom>90', this, this.getNext.bind(this));
+		if (this._resizable)
+			dispatcher.listen('Navigation:change:width', this, this.resizeEntity.bind(this));
 
 		return dispatcher;
+	}
+
+	public getEntityWidth : function () {
+		if (this._entityWidth == undefined)
+			this.resizeEntity();
+		return this._entityWidth;
+	}
+
+	public getEntityHeight : function () {
+		if (this._entityHeight == undefined)
+			this.resizeEntity();
+		return this._entityHeight;
+	}
+
+	public resizeEntity : function (trigger, datas) {
+		var dispatcher = serviceLocator.get('Dispatcher');
+		var width = document.getElementById('content').offsetWidth - 20;
+		var nbElement = Math.floor(width / (this.entityWidth + 2 * this.margeEntity));
+		var widthResidue = width - (nbElement * this.entityWidth);
+		var widthMoreElement = Math.floor(widthResidue / nbElement) - (2 * this.margeEntity);
+		var widthElement = widthMoreElement + this.entityWidth;
+
+		var entityHeight = Math.floor(widthElement * (this.entityHeight / this.entityWidth));
+
+		this._entityWidth = widthElement;
+		this._entityHeight = entityHeight;
+
+		dispatcher.trigger('Timeline:'+ this.getType() +':resize', { 
+			width : widthElement,
+			height : entityHeight
+		});
 	}
 
 	public showSearch : function (trigger, datas) {
@@ -105,6 +147,8 @@ class ElementDataSearchTemplate extends FormTemplate {
 				self.getNext();
 			else
 				self.createElement = false;
+			if (self._resizable)
+				self.resizeEntity();
 		});
 	}
 
