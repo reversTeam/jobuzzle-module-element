@@ -48,8 +48,9 @@ class ElementDataSearchTemplate extends FormTemplate {
 		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':remove', this, this.update.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom>90', this, this.getNext.bind(this));
+		dispatcher.listen('Navigation:change:height', this, this.calcOffset.bind(this));
 		if (this._resizable)
-			dispatcher.listen('Navigation:change:width', this, this.resizeEntity.bind(this));
+			dispatcher.listen('Navigation:change:width', this, this.calcOffset.bind(this));
 
 		return dispatcher;
 	}
@@ -66,6 +67,32 @@ class ElementDataSearchTemplate extends FormTemplate {
 		return this._entityHeight;
 	}
 
+	public calcOffset : function (trigger, datas) {
+		this.resizeEntity();
+		var me = serviceLocator.get('ServiceManager').get('store_manager_main_service').getMe().getType();
+		var height = window.innerHeight - 110;
+		var width = document.getElementById('content').offsetWidth - 20;
+		var entityWidth = this._entityWidth ? this._entityWidth : this.entityWidth;
+		var entityHeight = this._entityHeight ? this._entityHeight : this.entityHeight;
+		var nbElement = Math.floor(width / (entityWidth + 2 * this.margeEntity));
+		var line = (Math.round(height / entityHeight) + 1);
+		var limit = line * nbElement;
+		var paginator = this.getPaginator();
+		var lostElement = 0;
+		var nbCurrentElement = 0;
+		paginator['limit'] = limit;
+
+		if (!this._view || !this._view.state || !this._view.state['entities'])
+			return ;
+		nbCurrentElement = Object.keys(this._view.state['entities']).length - (me == this.getType());
+		if (nbCurrentElement < line * nbElement) {
+			lostElement = (line * nbElement) - nbCurrentElement;
+		}
+		if (lostElement && nbCurrentElement != 0) {
+			this.getNext(lostElement);
+		}
+	}
+
 	public resizeEntity : function (trigger, datas) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 		var width = document.getElementById('content').offsetWidth - 20;
@@ -73,7 +100,6 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var widthResidue = width - (nbElement * this.entityWidth);
 		var widthMoreElement = Math.floor(widthResidue / nbElement) - (2 * this.margeEntity);
 		var widthElement = widthMoreElement + this.entityWidth;
-
 		var entityHeight = Math.floor(widthElement * (this.entityHeight / this.entityWidth));
 
 		this._entityWidth = widthElement;
@@ -88,6 +114,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 	public showSearch : function (trigger, datas) {
 		var parentEntity = this.getService().getParentEntity();
 		var params = this.getPaginator(parentEntity);
+		this.calcOffset();
 
 		if (!params['wait'] && this.getVisibility())
 			this.setReady(true);
@@ -120,30 +147,32 @@ class ElementDataSearchTemplate extends FormTemplate {
 		return this._paginator[id];
 	}
 
-	getNext : function () {
+	getNext : function (nbElement) {
 		var self = this;
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var router = serviceLocator.get('Router');
 		var parentEntity = this.getService().getParentEntity();
-		var params = this.getPaginator(parentEntity);
+		var paginator = this.getPaginator(parentEntity);
+		var params = {};
+		params['limit'] = parseInt(nbElement) ? parseInt(nbElement) : parseInt(paginator['limit']);
+		params['offset'] = parseInt(paginator['offset']);
 
-		if (params['wait'] || params['end'] || !this.getVisibility())
+		if (paginator['wait'] || paginator['end'] || !this.getVisibility())
 			return ;
 
 		if (this._view['setState'])
 			this._view['setState']({ 'loader' : true });
-		params['wait'] = true;
+		paginator['wait'] = true;
 
 		if (parentEntity)
 			var route = router.entityRouteForApi(parentEntity, this.getRoute());
 		else
 			var route = router.build('/'+ this.getRoute());
 		store.request(route, params, function (data) {
-			params['end'] = !data.result.length;
-			params['wait'] = false;
+			paginator['end'] = !data.result.length;
 			self._view['setState']({ 'loader' : false });
-			params['offset'] += params['limit'];
-			if (!self.createElement && !params['end'])
+			paginator['offset'] += params['limit'];
+			if (!self.createElement && !paginator['end'])
 				self.getNext();
 			else
 				self.createElement = false;
