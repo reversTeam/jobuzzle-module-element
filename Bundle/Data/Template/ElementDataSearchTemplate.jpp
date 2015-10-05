@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 02:11:59
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 23:04:12
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -56,13 +56,13 @@ class ElementDataSearchTemplate extends FormTemplate {
 	}
 
 	public getEntityWidth : function () {
-		if (this._entityWidth == undefined)
+		if (this._entityWidth == undefined && this._resizable)
 			this.resizeEntity();
 		return this._entityWidth;
 	}
 
 	public getEntityHeight : function () {
-		if (this._entityHeight == undefined)
+		if (this._entityHeight == undefined && this._resizable)
 			this.resizeEntity();
 		return this._entityHeight;
 	}
