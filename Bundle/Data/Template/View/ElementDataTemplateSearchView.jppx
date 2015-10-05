@@ -79,6 +79,10 @@ class ElementDataTemplateSearchView extends FormView {
 			if (!(self.state['entities'][i]['isMe']() || !self.state['entities'][i]['search'](self.state['search'])))
 				elems.push(<div className="entity" key={i}>{entities[i]['displayTimeline']()}</div>);
 		}
+		if (Object.keys(this.state.entities).length <= displayNbEntity) {
+			var paginator = this._template.getPaginator();
+			paginator['wait'] = false;
+		}
 
 		return elems;
 	}
@@ -106,6 +110,8 @@ class ElementDataTemplateSearchView extends FormView {
 				{loader}
 			</div>
 		</div>);
+
+		return dom;
 	}
 
 }
