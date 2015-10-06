@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 11:03:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 17:10:11
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -76,11 +76,14 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var entityHeight = this._entityHeight ? this._entityHeight : this.entityHeight;
 		var nbElement = Math.floor(width / (entityWidth + 2 * this.margeEntity));
 		nbElement = nbElement != 0 ? nbElement : 1;
-		var line = (Math.round(height / entityHeight) + 1);
+		var line = (Math.floor(height / entityHeight) + 1);
 		var limit = line * nbElement;
 		var paginator = this.getPaginator();
 		var lostElement = 0;
 		var nbCurrentElement = 0;
+		if (limit < this.limit)
+			limit = Math.round(this.limit / limit) * limit;
+
 		paginator['limit'] = limit;
 
 		if (!this._view || !this._view.state || !this._view.state['entities'])
