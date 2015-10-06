@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 09:36:26
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 11:03:56
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -75,6 +75,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var entityWidth = this._entityWidth ? this._entityWidth : this.entityWidth;
 		var entityHeight = this._entityHeight ? this._entityHeight : this.entityHeight;
 		var nbElement = Math.floor(width / (entityWidth + 2 * this.margeEntity));
+		nbElement = nbElement != 0 ? nbElement : 1;
 		var line = (Math.round(height / entityHeight) + 1);
 		var limit = line * nbElement;
 		var paginator = this.getPaginator();
@@ -101,10 +102,10 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var widthResidue = width - (nbElement * this.entityWidth);
 		var widthMoreElement = Math.floor(widthResidue / nbElement) - (2 * this.margeEntity);
 		var widthElement = widthMoreElement + this.entityWidth;
-		var entityHeight = Math.floor(widthElement * (this.entityHeight / this.entityWidth));
+		var heightElement = Math.floor(widthElement * (this.entityHeight / this.entityWidth));
 
-		this._entityWidth = widthElement;
-		this._entityHeight = entityHeight;
+		this._entityWidth = widthElement == Infinity ? this.entityWidth : widthElement;
+		this._entityHeight = heightElement == Infinity ? this.entityHeight : heightElement;
 
 		this.update();
 	}
