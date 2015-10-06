@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 20:15:15
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 09:35:19
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -65,6 +65,12 @@ class ElementDataTemplateSearchView extends FormView {
 		var elems = [];
 		var entities = this.state['entities'];
 		var displayNbEntity = this.state['displayNbEntity'] + self._displayNbEntity;
+		var style = {};
+
+		if (this._template._resizable) {
+			style['width'] = this._template.getEntityWidth();
+			style['height'] = this._template.getEntityHeight();
+		}
 
 		for (var i in entities) {
 			if (++n > displayNbEntity) {
@@ -76,12 +82,17 @@ class ElementDataTemplateSearchView extends FormView {
 				}
 				break ;
 			}
-			if (!(self.state['entities'][i]['isMe']() || !self.state['entities'][i]['search'](self.state['search'])))
-				elems.push(<div className="entity" key={i}>{entities[i]['displayTimeline']()}</div>);
+			if (!(self.state['entities'][i]['isMe']() || !self.state['entities'][i]['search'](self.state['search']))) {
+				var className = 'entity '+ entities[i].getType().toLowerCase();
+				elems.push(<div className={className} style={style}>
+					{entities[i]['displayTimeline']()}
+				</div>);
+			}
 		}
 		if (Object.keys(this.state.entities).length <= displayNbEntity) {
 			var paginator = this._template.getPaginator();
 			paginator['wait'] = false;
+			this._template.setReady(true);
 		}
 
 		return elems;
@@ -98,7 +109,7 @@ class ElementDataTemplateSearchView extends FormView {
 			loader = this.getTemplate('navigation_loader_main_template');
 
 		entities = this.getEntities();
-		return (<div className={className} key={this.props.key}>
+		return (<div className={className}>
 			<div className="more-actions-filter">
 				<input type="text" placeholder={translator.translate('global.Search')}  onKeyUp={this.searchRefesh.bind(this)} />
 				<i className="fa fa-sliders"></i>
