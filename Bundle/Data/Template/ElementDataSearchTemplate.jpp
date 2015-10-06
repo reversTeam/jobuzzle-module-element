@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 23:04:12
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 09:36:26
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -85,9 +85,10 @@ class ElementDataSearchTemplate extends FormTemplate {
 		if (!this._view || !this._view.state || !this._view.state['entities'])
 			return ;
 		nbCurrentElement = Object.keys(this._view.state['entities']).length - (me == this.getType());
-		if (nbCurrentElement < line * nbElement) {
+		if (nbCurrentElement < line * nbElement)
 			lostElement = (line * nbElement) - nbCurrentElement;
-		}
+		else if (nbCurrentElement == line * nbElement)
+			lostElement = nbElement;
 		if (lostElement && nbCurrentElement != 0) {
 			this.getNext(lostElement);
 		}
@@ -105,10 +106,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		this._entityWidth = widthElement;
 		this._entityHeight = entityHeight;
 
-		dispatcher.trigger('Timeline:'+ this.getType() +':resize', { 
-			width : widthElement,
-			height : entityHeight
-		});
+		this.update();
 	}
 
 	public showSearch : function (trigger, datas) {
@@ -116,8 +114,9 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var params = this.getPaginator(parentEntity);
 		this.calcOffset();
 
-		if (!params['wait'] && this.getVisibility())
+		if (this.getVisibility()) {
 			this.setReady(true);
+		}
 		if (!(datas && params['offset'] > 0))
 			this.getNext();
 		this.update();
@@ -176,8 +175,6 @@ class ElementDataSearchTemplate extends FormTemplate {
 				self.getNext();
 			else
 				self.createElement = false;
-			if (self._resizable)
-				self.resizeEntity();
 		});
 	}
 
