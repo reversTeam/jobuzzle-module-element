@@ -3,14 +3,15 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-10-06 10:19:45
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 10:20:20
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 10:29:53
 **************************************************************/
 
-@import "search";
-@import "view";
-@import "miniature";
-@import "form/all";
+div.user-display-miniature {
+	display : inline-block;
+	background-color : $primary_color;
+	cursor : pointer;
+}
