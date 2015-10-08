@@ -83,6 +83,8 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var nbCurrentElement = 0;
 		if (limit < this.limit)
 			limit = Math.round(this.limit / limit) * limit;
+		else
+			limit = Math.floor(200 / limit) * limit;
 
 		paginator['limit'] = limit;
 
@@ -94,7 +96,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		else if (nbCurrentElement == line * nbElement)
 			lostElement = nbElement;
 		if (lostElement && nbCurrentElement != 0) {
-			this.getNext(lostElement);
+			this.getNext(lostElement + limit);
 		}
 	}
 
