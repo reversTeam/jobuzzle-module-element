@@ -64,7 +64,8 @@ class ElementDataTemplateSearchView extends FormView {
 		var display = false;
 		var elems = [];
 		var entities = this.state['entities'];
-		var displayNbEntity = this.state['displayNbEntity'] + self._displayNbEntity;
+		var paginator = this._template.getPaginator();
+		var displayNbEntity = this.state['displayNbEntity'] + paginator['limit'];
 		var style = {};
 
 		if (this._template._resizable) {
@@ -90,7 +91,6 @@ class ElementDataTemplateSearchView extends FormView {
 			}
 		}
 		if (Object.keys(this.state.entities).length <= displayNbEntity) {
-			var paginator = this._template.getPaginator();
 			paginator['wait'] = false;
 			this._template.setReady(true);
 		}
