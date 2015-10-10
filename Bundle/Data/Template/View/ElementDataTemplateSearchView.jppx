@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 23:10:15
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 02:00:45
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -31,8 +31,8 @@ class ElementDataTemplateSearchView extends FormView {
 	}
 
 	public initialState : function () {
-		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var states = {};
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		states['loader'] = true;
 		states['entities'] = store['getAll'](this['getElementType']())['filterByParentEntityRoute'](this._template.getService().getParentEntity());
 		states['search'] = '';

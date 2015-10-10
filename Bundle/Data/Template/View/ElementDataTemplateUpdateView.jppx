@@ -7,12 +7,12 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:10:49
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 00:20:12
 **************************************************************/
 
 class ElementDataTemplateUpdateView extends FormView {
 
-	public _class = 'company';
+	public _class = 'element';
 
 	public getClass : function () {
 		return this['_class'];

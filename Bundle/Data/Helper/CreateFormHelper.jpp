@@ -7,12 +7,13 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-16 00:19:43
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 01:12:29
 **************************************************************/
 
 class CreateFormHelper extends MasterHelper {
 
 	_viewClassName = 'CreateFormHelperView';
+	_hasLoader = false;
 
 	initialize : function () {
 		_super();
@@ -36,6 +37,7 @@ class CreateFormHelper extends MasterHelper {
 
 	public setEntity : function (entity) {
 		this['_entity'] = entity;
+		this.visible();
 
 		return this.entity;
 	}
