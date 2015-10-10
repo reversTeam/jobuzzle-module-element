@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 18:22:44
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 23:00:23
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
@@ -38,7 +38,7 @@ class ElementDataTemplateViewView extends ContentView {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		if (this.isMounted()) {
 			if (id)
-				this['setState']({ 'entity' : store.get(id), 'isReady' : true });
+				this['setState']({ 'entity' : store.get(id)});
 			else
 				this['setState']({ 'entity' : undefined });
 		}

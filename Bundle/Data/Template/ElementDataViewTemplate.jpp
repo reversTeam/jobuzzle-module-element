@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:50:31
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 23:04:27
 **************************************************************/
 
 class ElementDataViewTemplate extends ContentTemplate {
@@ -41,8 +41,11 @@ class ElementDataViewTemplate extends ContentTemplate {
 	setEntityView : function (entity) {
 		var dispatcher = serviceLocator.get('Dispatcher');
 
-		if (this['_entity'] && this['_entity'].getId() == entity.getId()) 
-			return
+		if (this['_entity'] && this['_entity'].getId() == entity.getId()) {
+			this.setReady(true);
+			this.update();
+			return ;
+		}
 
 		if (this['_entity'] != undefined) {
 			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':update', this);
@@ -51,6 +54,7 @@ class ElementDataViewTemplate extends ContentTemplate {
 
 		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':update', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':remove', this, this.remove.bind(this));
+		this.setReady(true);
 		this._view.setEntity(entity);
 		this['_entity'] = entity;
 	}
@@ -60,7 +64,6 @@ class ElementDataViewTemplate extends ContentTemplate {
 			return;
 		if (datas['entity'] && this._view && this._view.setEntity) {
 			this.getService().changeTitleView(datas['entity']);
-			this.setReady(true);
 			this.setEntityView(datas['entity']);
 		} else if (datas['entity']) {
 			var self = this;
