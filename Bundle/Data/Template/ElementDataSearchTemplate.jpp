@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-06 20:59:06
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 03:02:22
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -19,6 +19,8 @@ class ElementDataSearchTemplate extends FormTemplate {
 
 
 	public _resizable = true;
+	public _proportional = true;
+
 	public entityWidth = 140;
 	public entityHeight = 166;
 	public margeEntity = 10;
@@ -107,7 +109,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		var widthResidue = width - (nbElement * this.entityWidth);
 		var widthMoreElement = Math.floor(widthResidue / nbElement) - (2 * this.margeEntity);
 		var widthElement = widthMoreElement + this.entityWidth;
-		var heightElement = Math.floor(widthElement * (this.entityHeight / this.entityWidth));
+		var heightElement = this._proportional ? Math.floor(widthElement * (this.entityHeight / this.entityWidth)) : this.entityHeight;
 
 		this._entityWidth = widthElement == Infinity ? this.entityWidth : widthElement;
 		this._entityHeight = heightElement == Infinity ? this.entityHeight : heightElement;
