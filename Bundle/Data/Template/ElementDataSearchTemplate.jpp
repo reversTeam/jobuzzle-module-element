@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 03:02:22
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 15:41:45
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -73,7 +73,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 		this.resizeEntity();
 		var me = serviceLocator.get('ServiceManager').get('store_manager_main_service').getMe().getType();
 		var height = window.innerHeight - 110;
-		var width =  document.getElementById('content').offsetWidth - 20;
+		var width =  this.getWithContentEntities();
 		var entityWidth = this._entityWidth ? this._entityWidth : this.entityWidth;
 		var entityHeight = this._entityHeight ? this._entityHeight : this.entityHeight;
 		var nbElement = Math.floor(width / (entityWidth + 2 * this.margeEntity));
@@ -97,14 +97,25 @@ class ElementDataSearchTemplate extends FormTemplate {
 			lostElement = (line * nbElement) - nbCurrentElement;
 		else if (nbCurrentElement == line * nbElement)
 			lostElement = nbElement;
-		if (lostElement && nbCurrentElement != 0) {
+		if (lostElement && nbCurrentElement != 0)
 			this.getNext(lostElement + limit);
-		}
+	}
+
+	public getWithContentEntities : function () {
+		var width = 0;
+		var elem = null;
+		// var scrollBarWidth = window.innerWidth - (document.documentElement.clientWidth || document.body.clientWidth);
+
+		if (document.getElementById('entities'))
+			width = document.getElementById('entities').offsetWidth;
+		else if (document.getElementById('loaderInContent'))
+			width = document.getElementById('loaderInContent').offsetWidth;
+		return width;
 	}
 
 	public resizeEntity : function (trigger, datas) {
 		var dispatcher = serviceLocator.get('Dispatcher');
-		var width = document.getElementById('content').offsetWidth - 20;
+		var width = this.getWithContentEntities();
 		var nbElement = Math.floor(width / (this.entityWidth + 2 * this.margeEntity));
 		var widthResidue = width - (nbElement * this.entityWidth);
 		var widthMoreElement = Math.floor(widthResidue / nbElement) - (2 * this.margeEntity);
