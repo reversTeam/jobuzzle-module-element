@@ -1,0 +1,57 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-10-28 23:07:40
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-29 01:35:13
+**************************************************************/
+
+input[type="text"], select {
+	box-sizing: border-box;
+	background-color: darken($white_color, 2);
+	border: 1px solid rgba($primary_color, 0.3);
+	color: darken($white_color, 45);
+	transition: 0.3s;
+	outline : none;
+	font-size: 14px;
+
+	&.error {
+		border : 1px solid rgba($error_color, 0.5);
+		color : rgba($error_color, 0.6);
+
+		&:focus {
+			border : 1px solid rgba($error_color, 0.9);
+			color : $error_color;
+
+			&:hover {
+				border : 1px solid $error_color;
+			}
+		}
+
+		&:hover {
+			border : 1px solid rgba($error_color, 0.9);
+		}
+	}
+
+	&:focus {
+		background-color: $white_color;
+		border: 1px solid $secondary_color;
+		color: rgba($primary_color, 0.7);
+
+		&:hover {
+			border : 1px solid $secondary_color;
+		}
+	}
+
+	&:hover {
+		border : 1px solid rgba($primary_color, 0.6);
+	}
+}
+
+select {
+	-webkit-appearance: none;
+}
