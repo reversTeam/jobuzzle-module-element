@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-09 15:39:29
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-28 23:03:55
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -148,29 +148,31 @@ class CreateFormHelperView extends MasterHelperView {
 
 		this.getFormElement('Button', sendButton, 'send');
 
-		return <form onSubmit={this.sendForm.bind(this)} method="POST">
-			<fieldset>
-				<legend>{translator.translate(form.getTitle())}</legend>
-				{Object.keys(inputs).map(function(i) {
-					inputs[i]['namespace'] = form.getFormName();
-					var element = self.getFormElement(inputs[i]['type'], form.getTypeForm(), inputs[i], i);
-					var input = self.getFormElementTemplate(inputs[i]['type'], form.getTypeForm(), form.getFormName(), i);
+		return <div className="container">
+			<form onSubmit={this.sendForm.bind(this)} method="POST">
+				<fieldset>
+					<legend>{translator.translate(form.getTitle())}</legend>
+					{Object.keys(inputs).map(function(i) {
+						inputs[i]['namespace'] = form.getFormName();
+						var element = self.getFormElement(inputs[i]['type'], form.getTypeForm(), inputs[i], i);
+						var input = self.getFormElementTemplate(inputs[i]['type'], form.getTypeForm(), form.getFormName(), i);
 
-					var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
-					if (entity && typeof entity[getter] == 'function')
-						input.setValue(entity[getter]());
-					else
-						input.setValue(undefined);
-					self.addInput(input);
-					return element;
-				})}
-				<div className="sendFormContainer">{ 
-					this.state.loader 
-						? self.getTemplate('navigation_loader_main_template')
-						: self.getFormElement('Button', form.getTypeForm(), sendButton, 'send')
-				}</div>
-			</fieldset>
-		</form>;
+						var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
+						if (entity && typeof entity[getter] == 'function')
+							input.setValue(entity[getter]());
+						else
+							input.setValue(undefined);
+						self.addInput(input);
+						return element;
+					})}
+					<div className="sendFormContainer">{ 
+						this.state.loader 
+							? self.getTemplate('navigation_loader_main_template')
+							: self.getFormElement('Button', form.getTypeForm(), sendButton, 'send')
+					}</div>
+				</fieldset>
+			</form>
+		</div>;
 	}
 
 }
