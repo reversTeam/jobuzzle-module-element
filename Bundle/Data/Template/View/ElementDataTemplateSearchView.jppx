@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-28 17:44:29
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-03 14:26:40
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -114,7 +114,7 @@ class ElementDataTemplateSearchView extends FormView {
 				<input type="text" placeholder={translator.translate('global.Search')}  onKeyUp={this.searchRefesh.bind(this)} />
 				<i className="fa fa-sliders"></i>
 				<i className="fa fa-trash"></i>
-				<i className="fa fa-plus" onClick={this.link} data-url={router.build('/'+ this.getClass() +'/create')}></i>
+				<i className="fa fa-plus" onClick={this.link} data-url={router.buildPartial('create')}></i>
 			</div>
 			{entities}
 			<div className="loader_entities">
