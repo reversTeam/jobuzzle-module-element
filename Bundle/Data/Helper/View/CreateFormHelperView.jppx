@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-03 15:57:11
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-06 09:40:21
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -27,8 +27,9 @@ class CreateFormHelperView extends MasterHelperView {
 		if (!input)
 			return ;
 		var key = input.getIdentifier();
-		if (!this['_inputs'][key])
+		if (!this['_inputs'][key]) {
 			this['_inputs'][key] = input;
+		}
 	}
 
 	getFormElementManager : function () {
@@ -98,8 +99,7 @@ class CreateFormHelperView extends MasterHelperView {
 
 			// TODO : REMOVE AFTER ACCESS CHECK
 			if (( !entity || (entity && formElement.getValue() != entity[getter]()) ) && ( formElement.getValue() != '' && formElement.getValue() != undefined )) {
-				if (inputs[formElement.getTarget()] == undefined 
-					|| this.validated(formElement, input)) {
+				if (inputs[formElement.getTarget()] == undefined || this.validated(formElement, input)) {
 					params[formElement.getTarget()] = formElement.getValue();
 					formElement.hideError();
 				} else {
@@ -131,7 +131,6 @@ class CreateFormHelperView extends MasterHelperView {
 				var url = router.build(form.getUrl());
 
 			}
-			console.debug(url, params);
 			this.setState({ loader : true });
 			store.request(router.buildPartialForApi(), params, this.disabledLoader.bind(this));
 		}
@@ -160,8 +159,8 @@ class CreateFormHelperView extends MasterHelperView {
 						var getter = 'get' + i[0].toUpperCase() + i.substr(1, i.length - 1);
 						if (entity && typeof entity[getter] == 'function')
 							input.setValue(entity[getter]());
-						else
-							input.setValue(undefined);
+						// else
+						// 	input.setValue(undefined);
 						self.addInput(input);
 						return element;
 					})}
