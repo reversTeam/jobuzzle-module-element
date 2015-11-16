@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 01:12:29
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-12 14:32:25
 **************************************************************/
 
 class CreateFormHelper extends MasterHelper {
@@ -19,6 +19,14 @@ class CreateFormHelper extends MasterHelper {
 		_super();
 		this['_form'] = undefined;
 		this['_entity'] = undefined;
+	}
+
+	public onListen : function () {
+		var dispatcher = _super();
+
+		dispatcher.listen('*:send:EditForm', this, this.sendForm.bind(this));
+
+		return dispatcher;
 	}
 
 	public getForm : function () {
@@ -35,11 +43,22 @@ class CreateFormHelper extends MasterHelper {
 		return this['_entity'];
 	}
 
+	public sendForm : function () {
+		this._view.sendForm();
+	}
+
 	public setEntity : function (entity) {
+		var dispatcher = serviceLocator.get('Dispatcher');
+		var oldEntity = this['_entity'];
+
 		this['_entity'] = entity;
 		this.visible();
 
-		return this.entity;
+		if (this._view instanceof MasterView && (!oldEntity || oldEntity.getId() != entity.getId())) {
+			// dispatcher.trigger('Template:Update:'+ this._view.props.key, {entity : entity});
+		}
+
+		return this;
 	}
 
 }

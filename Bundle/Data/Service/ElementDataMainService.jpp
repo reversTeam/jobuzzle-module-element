@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 22:50:19
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-09 14:20:52
 **************************************************************/
 
 class ElementDataMainService extends MasterService {
@@ -50,7 +50,7 @@ class ElementDataMainService extends MasterService {
 
 	public changeTitle : function (str, params) {
 		var translator = serviceLocator.get('Translator');
-		var title = translator.translate(this.getType() +'.'+ this.getTitle());
+		var title = translator.translate(this.getType() +'.page.title.'+ this.getTitle());
 		if (str)
 			title += ' - '+ translator.translate(str, params);
 		this._titleService.changeTitle(title);
@@ -77,11 +77,11 @@ class ElementDataMainService extends MasterService {
 	}
 
 	public changeTitleView : function (entity) {
-		this.changeTitle(this.getType() +'.view', this.getTitleParamsView(entity));
+		this.changeTitle(this.getType() +'.page.title.view', this.getTitleParamsView(entity));
 	}
 
 	public changeTitleUpdate : function (entity) {
-		this.changeTitle(this.getType() +'.update', this.getTitleParamsView(entity));
+		this.changeTitle(this.getType() +'.page.title.update', this.getTitleParamsView(entity));
 	} 
 
 	public view : function (entity) {

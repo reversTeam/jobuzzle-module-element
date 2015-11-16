@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-08 02:39:21
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 13:14:58
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -15,11 +15,29 @@ class CreateFormHelperView extends MasterHelperView {
 	initialize : function (props, context) {
 		_super(props, context);
 		this['_inputs'] = {};
+		this.onListen();
 	}
 
 	initialState : function () {
 		return {
-			loader : false
+			loader : false,
+			entity : this._template.getEntity()
+		};
+	}
+
+	onListen : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
+		dispatcher.listen('Template:Update:'+ this.props.key, this, this.updateByTemplate.bind(this));
+
+		return dispatcher;
+	}
+
+	updateByTemplate : function (t, datas) {
+		if (!datas || !datas['entity'])
+			return ;
+		if (this.isMounted() && datas['entity']) {
+			this.setState({entity : datas['entity']});
 		}
 	}
 
@@ -37,7 +55,8 @@ class CreateFormHelperView extends MasterHelperView {
 	}
 
 	disabledLoader : function () {
-		this.setState({ loader : false });
+		if (this.isMounted())
+			this.setState({ loader : false });
 	}
 
 	validated : function (element, input) {
@@ -87,7 +106,7 @@ class CreateFormHelperView extends MasterHelperView {
 	}
 
 	validatedAll : function (params) {
-		var entity = this._template.getEntity();
+		var entity = this.state['entity'];
 		var form = this._template.getForm();
 		var inputs = form.getElementsInput();
 		var error = false;
@@ -112,15 +131,17 @@ class CreateFormHelperView extends MasterHelperView {
 	}
 
 	sendForm : function (e) {
-		e.stopPropagation();
-		e.preventDefault();
+		if (e) {
+			e.stopPropagation();
+			e.preventDefault();
+		}
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		var router = serviceLocator.get('Router');
 		var form = this._template.getForm();
 		var params = {};
-		var entity = this._template.getEntity();
+		var entity = this.state['entity'];
 		
-		this.filteredAll();		
+		this.filteredAll();
 
 		if (!this.validatedAll(params)) {
 			if (form.getParamNameRoute && typeof form.getParamNameRoute == 'function') {
@@ -131,15 +152,24 @@ class CreateFormHelperView extends MasterHelperView {
 				var url = router.build(form.getUrl());
 
 			}
-			this.setState({ loader : true });
-			store.request(router.buildPartialForApi(), params, this.disabledLoader.bind(this));
+			if (this.isMounted())
+				this.setState({ loader : true });
+
+			var form = this._template.getForm();
+			var segment = form.getTypeForm() != 'search' ? form.getTypeForm() : '';
+
+			store.request(
+				router.entityRouteForApi(this.state['entity'], segment),
+				params,
+				this.disabledLoader.bind(this)
+			);
 		}
 	}
 
 	display : function () {
 		var self = this;
 		var form = this._template.getForm();
-		var entity = this._template.getEntity();
+		var entity = this.state['entity'];
 		var inputs = form.getElementsDisplay();
 		var sendButton = form.getSendButton();
 		var translator = serviceLocator.get('Translator');
@@ -162,7 +192,7 @@ class CreateFormHelperView extends MasterHelperView {
 						// else
 						// 	input.setValue(undefined);
 						self.addInput(input);
-						return element;
+						return <div key={i}>{element}</div>;
 					})}
 					<div className="sendFormContainer">{ 
 						this.state.loader 

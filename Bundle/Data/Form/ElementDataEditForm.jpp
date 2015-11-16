@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 13:46:38
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 02:05:46
 **************************************************************/
 
 class ElementDataEditForm extends MasterForm {
@@ -16,7 +16,7 @@ class ElementDataEditForm extends MasterForm {
 	public _namespace = 'Element';
 	public _url = '/element/view/update';
 	public _paramNameRoute = 'element_id';
-	public _typeForm = 'edit';
+	public _typeForm = 'update';
 
 	initialize : function () {
 		_super();

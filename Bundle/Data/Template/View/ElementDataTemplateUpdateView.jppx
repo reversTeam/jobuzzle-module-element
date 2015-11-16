@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 00:20:12
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 16:14:52
 **************************************************************/
 
 class ElementDataTemplateUpdateView extends FormView {
@@ -25,7 +25,9 @@ class ElementDataTemplateUpdateView extends FormView {
 	}
 
 	public setEntity : function (entity) {
-		this['setState']({ 'entity' : entity });
+		if (this.isMounted()) {
+			this['setState']({ 'entity' : entity });
+		}
 	}
 
 	public update : function (id) {

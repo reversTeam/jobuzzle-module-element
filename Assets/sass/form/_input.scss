@@ -7,10 +7,10 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-29 01:35:13
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-08 19:33:02
 **************************************************************/
 
-input[type="text"], select {
+input[type="text"], select, textarea {
 	box-sizing: border-box;
 	background-color: darken($white_color, 2);
 	border: 1px solid rgba($primary_color, 0.3);
