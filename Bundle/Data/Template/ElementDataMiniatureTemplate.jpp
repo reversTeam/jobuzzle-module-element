@@ -7,16 +7,18 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:30:13
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 01:14:31
 **************************************************************/
 
 class ElementDataMiniatureTemplate extends ContentTemplate {
 
 	_viewClassName = 'ElementDataTemplateMiniatureView';
 	_entity = undefined;
+	public _type = 'Element';
+
 	public _hasLoader = false;
 
-	#default get, set for _entity;
+	#default get, set for _type;
 
 	public onListen : function () {
 		var dispatcher = _super();
@@ -25,8 +27,27 @@ class ElementDataMiniatureTemplate extends ContentTemplate {
 	}
 
 	public update : function () {
-		if (this.getVisibility())
-			this._view.update();
+		if (this._view instanceof MasterView)
+			dispatcher.trigger('Template:Update:'+ this._view.props.key, {entity : this._entity});
+	}
+
+	public getEntity : function () {
+		return this['_entity'];
+	}
+
+	public setEntity : function (entity) {
+
+		if (this['_entity'] != undefined) {
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':update', this);
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':remove', this);
+		}
+
+		this['_entity'] = entity;
+		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':update', this, this.update.bind(this));
+
+		// dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':remove', this, this.remove.bind(this));
+		this.update();
+		return this;
 	}
 
 }

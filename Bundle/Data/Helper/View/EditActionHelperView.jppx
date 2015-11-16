@@ -1,0 +1,41 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-13 12:17:03
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 12:26:25
+**************************************************************/
+
+class EditActionHelperView extends MasterHelperView {
+
+	public editAction : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+		var entity = this._template.getEntity();
+		var type = entity.getType().toLowerCase();
+
+		dispatcher.trigger(type +':edit:popupOpen', {
+			'title' : 'form.title.'+ type +'.edit',
+			'template' : type +'_data_update_template',
+			'init' : function (template) {
+				template.visible();
+				template.changeEntity(type +':edit:entity', {'entity' : entity});
+			},
+			'validated' : function (template) {
+				template.sendForm();
+				this.close();
+			}
+		});
+	}
+
+	display : function () {
+		var t = serviceLocator.get('Translator');
+		var key = [this._template.getEntity().getType().toLowerCase(), 'view.actions.edit'];
+
+		return <button className="secondary revers" onClick={this.editAction.bind(this)}>{t.translate(key.join('.'))}</button>
+	}
+
+}

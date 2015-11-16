@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 01:13:31
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-12 14:28:29
 **************************************************************/
 
 class ElementDataUpdateTemplate extends FormTemplate {
@@ -66,6 +66,12 @@ class ElementDataUpdateTemplate extends FormTemplate {
 				self.changeEntity(trigger, datas);
 			}, 100);
 		}
+	}
+
+	public sendForm : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
+		dispatcher.trigger(this.getType() +':send:EditForm');
 	}
 
 	public getType : function () {

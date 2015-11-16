@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-03 14:26:40
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 16:30:43
 **************************************************************/
 
 class ElementDataTemplateSearchView extends FormView {
@@ -33,7 +33,7 @@ class ElementDataTemplateSearchView extends FormView {
 	public initialState : function () {
 		var states = {};
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
-		states['loader'] = true;
+		states['loader'] = false;
 		states['entities'] = store['getAll'](this['getElementType']())['filterByParentEntityRoute'](this._template.getService().getParentEntity());
 		states['search'] = '';
 		states['displayNbEntity'] = 0;
@@ -48,14 +48,19 @@ class ElementDataTemplateSearchView extends FormView {
 	}
 
 	searchRefesh : function (e) {
-		this['setState']({ 'search' : e.target.value });
+		if (this.isMounted()) {
+			this['setState']({ 'search' : e.target.value });
+		}
 	}
 
 	onVisible : function () {
-		this['setState']({
-			'search' : '',
-			'displayNbEntity' : 0
-		});
+		if (this.isMounted()) {
+			this['setState']({
+				'search' : '',
+				'displayNbEntity' : 0,
+				'loader' : false
+			});
+		}
 	}
 
 	public getEntities : function () {
@@ -78,14 +83,16 @@ class ElementDataTemplateSearchView extends FormView {
 				if (!display) {
 					display = true;
 					setTimeout(function () {
-						self.setState({ 'displayNbEntity' : displayNbEntity });
+						if (self.isMounted()) {
+							self.setState({ 'displayNbEntity' : displayNbEntity });
+						}
 					}, 1);
 				}
 				break ;
 			}
 			if (!(self.state['entities'][i]['isMe']() || !self.state['entities'][i]['search'](self.state['search']))) {
 				var className = 'entity '+ entities[i].getType().toLowerCase();
-				elems.push(<div className={className} style={style}>
+				elems.push(<div className={className} key={i} style={style}>
 					{entities[i]['displayTimeline']()}
 				</div>);
 			}

@@ -7,8 +7,22 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-28 23:30:19
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-12 14:12:41
 **************************************************************/
+
+div.popup {
+	form {
+		fieldset {
+			legend {
+				display : none;
+			}
+
+			div.sendFormContainer {
+				display : none;
+			}
+		}
+	}
+}
 
 form {
 	padding: 10px;
@@ -27,25 +41,26 @@ form {
 			position: relative;
 
 			div.inputForm {
-				height : 35px;
 				margin-left : 20px;
+				margin-top : 5px;
+				margin-bottom: 5px;
 			}
 
 			span.label {
 				width : $width_label_form;
 				display : inline-block;
+				vertical-align: top;
 			}
 
-			input[type="text"], select {
+			input[type="text"], select, textarea {
 				width: calc(100% - #{$width_label_form} - 20px);
 				height: 30px;
 				padding: 5px 10px;
 			}
 
-			input[type="text"]
-
-			select {
-			
+			textarea {
+				height: 60px;
+				resize: vertical;
 			}
 
 			ul.errorMessage {

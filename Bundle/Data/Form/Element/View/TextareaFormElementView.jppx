@@ -3,28 +3,21 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-09-17 14:37:49
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-08 19:29:06
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 16:11:38
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-08 19:31:23
 **************************************************************/
 
-class SelectFormElementView extends MasterFormElementView {
+class TextareaFormElementView extends MasterFormElementView {
 
 	display : function () {
-		var self = this;
 		var translator = serviceLocator.get('Translator');
-		var options = this._template.getOptions();
-		var values = options['values'];
-
+		var className = this.state.error ? 'error' : '';
 		return <div className="inputForm">
 			<span className="label">{translator.translate(this._template.getLabel())}</span>
-			<select defaultValue={this._template.getValue()} onChange={this.changeValue.bind(this)}>
-				{Object.keys(values).map(function (i) {
-					return <option value={i} key={i}>{translator.translate(values[i])}</option>
-				})}
-			</select>
+			<textarea type="text" className={className} defaultValue={this._template.getValue()} onKeyUp={this.changeValue.bind(this)}></textarea>
 		</div>;
 	}
 

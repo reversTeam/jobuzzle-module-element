@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-10 15:59:06
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 16:16:46
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -37,9 +37,12 @@ class ElementDataSearchTemplate extends FormTemplate {
 	offset = 0;
 	createElement = true;
 
+	timerLoader = undefined;
+
 	public initialize : function () {
 		_super();
 		this['_paginator'] = {};
+		this.timerLoader = {};
 	}
 
 	public onListen : function () {
@@ -162,6 +165,20 @@ class ElementDataSearchTemplate extends FormTemplate {
 		return this._paginator[id];
 	}
 
+	setLoaderState : function (state) {
+		var self = this;
+
+		if (this.timerLoader[state]) {
+			clearTimeout(this.timerLoader[!state]);
+			clearTimeout(this.timerLoader[state]);
+		}
+
+		this.timerLoader[state] = setTimeout(function () {
+			if (self._view.isMounted())
+				self._view['setState']({ 'loader' : state });
+		}, 50);
+	}
+
 	getNext : function (nbElement) {
 		var self = this;
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
@@ -175,8 +192,8 @@ class ElementDataSearchTemplate extends FormTemplate {
 		if (paginator['wait'] || paginator['end'] || !this.getVisibility())
 			return ;
 
-		if (this._view['setState'])
-			this._view['setState']({ 'loader' : true });
+		if (this._view['setState'] && !this._view['state']['loader'])
+			this.setLoaderState(true);
 		paginator['wait'] = true;
 
 		if (parentEntity)
@@ -185,7 +202,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 			var route = router.build('/'+ this.getRoute());
 		store.request(route, params, function (data) {
 			paginator['end'] = !data.result.length;
-			self._view['setState']({ 'loader' : false });
+			self.setLoaderState(false);
 			paginator['offset'] += params['limit'];
 			if (!self.createElement && !paginator['end'])
 				self.getNext();

@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-20 23:28:58
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-08 19:49:45
 **************************************************************/
 
 class ElementDataFieldsetForm extends MasterFormFieldset {
@@ -36,10 +36,10 @@ class ElementDataFieldsetForm extends MasterFormFieldset {
 	public getElementsDisplay : function () {
 		var elementsDisplay = _super();
 
-		elementsDisplay['id'] = this.getIdDisplay();
-		elementsDisplay['parentid'] = this.getParentidDisplay();
-		elementsDisplay['creationdate'] = this.getCreationdateDisplay();
-		elementsDisplay['updatedate'] = this.getUpdatedateDisplay();
+		// elementsDisplay['id'] = this.getIdDisplay();
+		// elementsDisplay['parentid'] = this.getParentidDisplay();
+		// elementsDisplay['creationdate'] = this.getCreationdateDisplay();
+		// elementsDisplay['updatedate'] = this.getUpdatedateDisplay();
 
 		return elementsDisplay;
 	}

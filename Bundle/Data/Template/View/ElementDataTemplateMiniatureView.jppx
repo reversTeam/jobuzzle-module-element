@@ -7,22 +7,43 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-03 21:21:36
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 01:15:07
 **************************************************************/
 
 class ElementDataTemplateMiniatureView extends ContentView {
 
 	public initialState : function () {
+		this.onListen();
 		var states = {};
 		states['entity'] = this['_template']._entity;
+
+
 		return states;
 	}
+
+	public onListen : function () {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
+		dispatcher.listen('Template:Update:'+ this.props.key, this, this.updateByTemplate.bind(this));
+
+		return dispatcher;
+	}
+
+	public updateByTemplate : function (t, datas) {
+		if (this.isMounted() && datas['entity']) {
+			this['setState']({
+				'entity' : datas['entity']
+			});
+		}
+	}
+
 
 	public update : function () {
 		if (this.isMounted()) {
 			this['setState']({
 				'entity' : this['_template']._entity
 			});
+			this.forceUpdate();
 		}
 	}
 

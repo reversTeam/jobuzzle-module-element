@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-08 01:18:51
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 12:27:21
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
@@ -23,7 +23,9 @@ class ElementDataTemplateViewView extends ContentView {
 	}
 
 	public setEntity : function (entity) {
-		this['setState']({ 'entity' : entity });
+		if (this.isMounted()) {
+			this['setState']({ 'entity' : entity });
+		}
 	}
 
 	public getUrlEdit : function () {
@@ -38,6 +40,7 @@ class ElementDataTemplateViewView extends ContentView {
 		return url;
 	}
 
+
 	public update : function (id) {
 		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
 		if (this.isMounted()) {
@@ -50,6 +53,16 @@ class ElementDataTemplateViewView extends ContentView {
 
 	public display : function () {
 		return (<div>View Element</div>);
+	}
+
+	public displayActions : function (entity) {
+		var router = serviceLocator.get('Router');
+		var t = serviceLocator.get('Translator');
+		var key = [this.getClass(), 'view.actions.edit'];
+
+		return <div className="actions">
+			{this.getHelper('EditAction', { entity : this.state['entity'] })}
+		</div>;
 	}
 
 }

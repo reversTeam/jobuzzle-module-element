@@ -1,0 +1,33 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-13 12:16:47
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 12:18:10
+**************************************************************/
+
+class EditActionHelper extends MasterHelper {
+
+	_viewClassName = 'EditActionHelperView';
+	_hasLoader = false;
+
+	initialize : function () {
+		_super();
+		this['_entity'] = undefined;
+	}
+
+	public getEntity : function () {
+		return this['_entity'];
+	}
+
+	public setEntity : function (entity) {
+		this['_entity'] = entity;
+
+		return this;
+	}
+
+}
