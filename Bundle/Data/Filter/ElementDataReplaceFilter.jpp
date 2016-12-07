@@ -3,12 +3,24 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-27 15:32:01
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-27 15:39:12
 **************************************************************/
 
-@import "view/all";
-@import "form/all";
+class ElementDataReplaceFilter extends MasterFilter {
+
+	public filtered : function (element) {
+		var value = element.getValue();
+		var options = this.getOptions();
+
+		if (options == undefined || options['search'] == undefined || options['replace'])
+			throw "You cant call filter replace if you dont inform the pattern";
+		var reg = new RegExp(options['search'], 'g');
+
+		element.setValue(value.replace(reg, options['replace']));
+	}
+
+}

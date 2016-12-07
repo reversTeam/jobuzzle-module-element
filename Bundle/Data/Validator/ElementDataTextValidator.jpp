@@ -3,12 +3,22 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-25 00:16:03
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-27 14:56:50
 **************************************************************/
 
-@import "view/all";
-@import "form/all";
+class ElementDataTextValidator extends MasterValidator {
+
+	public isValid : function (value) {
+		if (typeof value == 'string')
+			return true;
+
+		this.setMessage('form.validator.not_text_type');
+		return false;
+	}
+
+
+}

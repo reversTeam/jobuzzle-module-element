@@ -7,9 +7,14 @@
 #       ## #     # #     # #     #    #       #    # #     #  #
 #       ## #     # #     # #     #   #       #     # ######   # @Last Modified by:   revers
 #  ####### #     # #     # #     #  #       #      # #        #
-#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-09-20 01:00:17
+#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-11-27 15:27:31
 ###############################################################
 
 invokables:
 	MinusDateNow : Data/Validator/ElementDataMinusDateNowValidator
 	MoreDate : Data/Validator/ElementDataMoreDateValidator
+	Text : Data/Validator/ElementDataTextValidator
+	Regex : Data/Validator/ElementDataRegexValidator
+	InArray : Data/Validator/ElementDataInArrayValidator
+	Length : Data/Validator/ElementDataLengthValidator
+	Number: Data/Validator/ElementDataNumberValidator

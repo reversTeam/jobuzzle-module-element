@@ -7,9 +7,14 @@
 #       ## #     # #     # #     #    #       #    # #     #  #
 #       ## #     # #     # #     #   #       #     # ######   # @Last Modified by:   revers
 #  ####### #     # #     # #     #  #       #      # #        #
-#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-09-20 10:49:41
+#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-11-27 15:26:47
 ###############################################################
 
 is_required : 'Is required'
 min_date_now : "The date is not passed yet"
 date_bigger_target : "Please enter a date respecting the dependences"
+reg_not_matched : "Is not a valid format"
+not_text_type: Doesn't respect the text format
+length_max: You have too much character
+length_min: You do not have enough characters
+not_number_format: It's not a number format

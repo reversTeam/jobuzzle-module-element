@@ -7,10 +7,32 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-09-11 21:26:43
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 15:25:24
 **************************************************************/
 
 class ElementDataTemplateDeleteView extends ContentView {
+
+	public initialState : function () {
+		return {
+			'entity' : this['_template']['_entity']
+		}
+	}
+
+	public setEntity : function (entity) {
+		if (this.isMounted()) {
+			this['setState']({ 'entity' : entity });
+		}
+	}
+
+	public update : function (id) {
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+		if (this.isMounted()) {
+			if (id)
+				this['setEntity'](store.get(id));
+			else
+				this['setEntity'](undefined);
+		}
+	}
 
 	public display : function () {
 		return (<div>Delete Element</div>);

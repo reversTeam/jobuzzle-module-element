@@ -3,26 +3,19 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-10-03 21:57:47
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-21 13:08:37
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-28 23:06:08
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 16:33:28
 **************************************************************/
 
 div.view {
 	div.actions {
 		float : right;
 
-		i.fa {
-			margin-left : 5px;
-			margin-right: 5px;
-			color : darken($white_color, 20);
-			transition: 0.2s;
-
-			&:hover {
-				color : darken($white_color, 40);
-			}
+		button:not(:last-child) {
+			margin-right: 10px;
 		}
 	}
 }

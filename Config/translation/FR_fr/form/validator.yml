@@ -7,9 +7,14 @@
 #       ## #     # #     # #     #    #       #    # #     #  #
 #       ## #     # #     # #     #   #       #     # ######   # @Last Modified by:   revers
 #  ####### #     # #     # #     #  #       #      # #        #
-#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-09-20 10:50:03
+#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-11-27 15:27:06
 ###############################################################
 
 is_required : 'Champs obligatoire'
 min_date_now : "La date n'est pas encore passée"
 date_bigger_target : "Merci d'entrer une date qui respecte les dépendances"
+reg_not_matched : "La valeur n'est pas dans le bon format"
+not_text_type: Ne respecte pas le format text
+length_max : Vous avez trop de caractères
+length_min : Vous n'avez pas assez de caractères
+not_number_format: N'a pas le format de nombre

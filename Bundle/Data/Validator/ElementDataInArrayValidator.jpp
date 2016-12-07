@@ -3,12 +3,28 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-27 14:17:48
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-27 14:26:00
 **************************************************************/
 
-@import "view/all";
-@import "form/all";
+class ElementDataInArrayValidator extends MasterValidator {
+
+	public isValid : function (value) {
+		var options = this.getOptions();
+		if (options == undefined || options['haystack'] == undefined)
+			throw "You don't have specified haystack for validator InArray";
+		var haystack = options['haystack'];
+
+		if (haystack.indexOf(value) != -1)
+			return true;
+
+		this.setMessage('form.validator.haystack_not_found');
+
+		return false;
+	}
+
+
+}

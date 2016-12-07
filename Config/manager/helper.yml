@@ -7,9 +7,10 @@
 #       ## #     # #     # #     #    #       #    # #     #  #
 #       ## #     # #     # #     #   #       #     # ######   # @Last Modified by:   revers
 #  ####### #     # #     # #     #  #       #      # #        #
-#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-11-13 12:21:44
+#  ######   #####   ######  #####  ####### ####### # #######  # @Last Modified time: 2015-11-21 13:30:06
 ###############################################################
 
 invokables:
 	CreateForm: Element/Data/Helper/CreateFormHelper
 	EditAction: Element/Data/Helper/EditActionHelper
+	DeleteAction: Element/Data/Helper/DeleteActionHelper

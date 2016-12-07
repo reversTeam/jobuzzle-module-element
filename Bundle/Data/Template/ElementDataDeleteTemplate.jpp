@@ -7,12 +7,91 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-02 15:30:28
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 15:59:16
 **************************************************************/
 
 class ElementDataDeleteTemplate extends ContentTemplate {
 
-	_viewClassName = 'ElementDataTemplateDeleteView';
+	_entity = undefined;
 	public _hasLoader = false;
+
+	public _viewClassName = 'ElementDataTemplateDeleteView';
+	public _type = 'Element';
+	public _serviceName = 'element_data_main_service';
+
+	public onListen : function () {
+		var dispatcher = _super();
+
+		dispatcher.listen(this.getType().toLowerCase() +':load:entity', this, this.changeEntity.bind(this));
+
+		return dispatcher;
+	}
+
+	public update : function (trigger, datas) {
+		if (this.getVisibility()) {
+			this._view.update(this['_entity'].getId());
+		}
+	}
+
+	public remove : function () {
+		if (this.getVisibility()) {
+			this._view.update(false);
+		}	
+		this['_entity'] = undefined;
+	}
+
+	setEntityView : function (entity) {
+		var dispatcher = serviceLocator.get('Dispatcher');
+
+		if (this['_entity'] && this['_entity'].getId() == entity.getId())
+			return
+
+		if (this['_entity'] != undefined) {
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':update', this);
+			dispatcher.unlisten('Store:'+ this.getType() +'-'+ this['_entity'].getId() +':remove', this);
+		}
+
+		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':update', this, this.update.bind(this));
+		dispatcher.listen('Store:'+ this.getType() +'-'+ entity.getId() +':remove', this, this.remove.bind(this));
+		this._view.setEntity(entity);
+		this['_entity'] = entity;
+	}
+
+	changeEntity : function (trigger, datas) {
+		if (datas['entity'] && this._view && this._view.setEntity) {
+			this.setReady(true);
+			this.getService().changeTitleView(datas['entity']);
+			this.setEntityView(datas['entity']);
+		} else if (datas['entity']) {
+			var self = this;
+			setTimeout(function () {
+				self.changeEntity(trigger, datas);
+			}, 100);
+		}
+	}
+
+	sendForm : function () {
+		var store = serviceLocator.get('ServiceManager').get('store_manager_main_service');
+		var router = serviceLocator.get('Router');
+		var entity = this.getEntity();
+
+		if (entity) {
+			store.request(router.entityRouteForApi(entity, 'delete'));
+		}
+	}
+
+	public getType : function () {
+		return this['_type'];
+	}
+
+	public getEntity : function () {
+		return this['_entity'];
+	}
+
+	public setEntity : function (entity) {
+		this['_entity'] = entity;
+
+		return this;
+	}
 
 }

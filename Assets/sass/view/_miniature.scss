@@ -3,12 +3,20 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-21 13:08:30
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:16
 **************************************************************/
 
-@import "view/all";
-@import "form/all";
+div.miniature {
+	display : inline-block;
+	background-color : $primary_color;
+	cursor : pointer;
+	width : 40px;
+	height : 40px;
+	background-size: cover;
+	border-radius: 50%;
+	border: 2px solid $secondary_color;
+}

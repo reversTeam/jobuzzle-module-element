@@ -1,0 +1,34 @@
+/**************************************************************
+*     ####         #                               #          * Jobuzzle - Copyright All rights reserved
+*     ####         #                               #          *
+*       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
+*       ## #     # #     # #     #      #       #  # #     #  *
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-27 15:10:24
+*       ## #     # #     # #     #    #       #    # #     #  *
+*       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
+*  ####### #     # #     # #     #  #       #      # #        *
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-27 15:23:13
+**************************************************************/
+
+class ElementDataLengthValidator extends MasterValidator {
+
+	public isValid : function (value) {
+		var options = this.getOptions();
+		if (options == undefined || options['max'] == undefined)
+			throw "You don't have specified max for validator Length";
+		var max = parseInt(options['max']);
+		var min = parseInt(options['min']) ? parseInt(options['min']) : 0;
+		var len = value.length;
+
+		if (len < min)
+			this.setMessage('form.validator.length_min');
+		else if (len > max)
+			this.setMessage('form.validator.length_max');
+		else
+			return true;
+
+		return false;
+	}
+
+
+}

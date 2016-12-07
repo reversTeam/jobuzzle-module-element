@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 00:19:10
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-17 15:39:01
 **************************************************************/
 
 class ElementDataMainEntity extends MasterEntity {
@@ -75,7 +75,7 @@ class ElementDataMainEntity extends MasterEntity {
 			this.templates[templateName] = templateManager.get(templateName);
 			this.templates[templateName].setEntity(this);
 			this.templates[templateName].visible();
-			this.views[templateName] = React.createElement(this.templates[templateName].getView(), null);
+			this.views[templateName] = React.createElement(this.templates[templateName].getView(), { key : this.getType() +'-'+ this.getId()});
 		}
 		return this.views[templateName];
 	}

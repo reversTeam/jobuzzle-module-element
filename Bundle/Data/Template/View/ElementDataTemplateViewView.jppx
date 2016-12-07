@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 12:27:21
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 16:31:53
 **************************************************************/
 
 class ElementDataTemplateViewView extends ContentView {
@@ -56,12 +56,9 @@ class ElementDataTemplateViewView extends ContentView {
 	}
 
 	public displayActions : function (entity) {
-		var router = serviceLocator.get('Router');
-		var t = serviceLocator.get('Translator');
-		var key = [this.getClass(), 'view.actions.edit'];
-
 		return <div className="actions">
 			{this.getHelper('EditAction', { entity : this.state['entity'] })}
+			{this.getHelper('DeleteAction', { entity : this.state['entity'] })}
 		</div>;
 	}
 

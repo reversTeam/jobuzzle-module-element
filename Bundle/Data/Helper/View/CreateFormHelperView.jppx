@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-13 13:14:58
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-12-02 12:52:31
 **************************************************************/
 
 class CreateFormHelperView extends MasterHelperView {
@@ -55,21 +55,25 @@ class CreateFormHelperView extends MasterHelperView {
 	}
 
 	disabledLoader : function () {
-		if (this.isMounted())
+		var dispatcher = serviceLocator.get('Dispatcher');
+
+		if (this.isMounted()) {
 			this.setState({ loader : false });
+			dispatcher.unlisten('Template:Update:'+ this.props.key, this);
+		}
 	}
 
 	validated : function (element, input) {
 		var validators = input['validators'];
 		var required = input['required'] ? input['required'] : false;
+
+		element.resetMessages();
 		if (!element.getValue() && required == true) {
 			element.addMessage('form.validator.is_required');
 			return false;
 		}
 		else if (validators == undefined || (!element.getValue() && required == false))
 			return true;
-		var validated = true;
-		element.resetMessages();
 		var validatorManager = serviceLocator.get('ValidatorManager');
 		for (var i in validators) {
 			var validator = validatorManager.get(validators[i]['name']);
@@ -77,9 +81,9 @@ class CreateFormHelperView extends MasterHelperView {
 			validator.setElement(element);
 			validator.setContext(this['_inputs']);
 			if (!validator.isValid(element.getValue()))
-				validated = false;
+				return false;
 		}
-		return validated;
+		return true;
 	}
 
 	filtered : function (element, filters) {
@@ -109,25 +113,25 @@ class CreateFormHelperView extends MasterHelperView {
 		var entity = this.state['entity'];
 		var form = this._template.getForm();
 		var inputs = form.getElementsInput();
-		var error = false;
+		var success = true;
 
 		for (var i in this['_inputs']) {
 			var formElement = this['_inputs'][i];
 			var input = inputs[formElement.getTarget()];
 			var getter = 'get' + formElement.getTarget()[0].toUpperCase() + formElement.getTarget().substr(1, formElement.getTarget().length - 1);
 
-			// TODO : REMOVE AFTER ACCESS CHECK
-			if (( !entity || (entity && formElement.getValue() != entity[getter]()) ) && ( formElement.getValue() != '' && formElement.getValue() != undefined )) {
-				if (inputs[formElement.getTarget()] == undefined || this.validated(formElement, input)) {
+			// TODO : REMOVE AFTER ACCESS CHECK BECAUSE CLEAN INPUT EMPTY FOR NOT HAVE BAD REQUEST API
+			// if (( !entity || (entity && formElement.getValue() != entity[getter]()) ) && ( formElement.getValue() != '' && formElement.getValue() != undefined )) {
+				if (input == undefined || this.validated(formElement, input)) {
 					params[formElement.getTarget()] = formElement.getValue();
 					formElement.hideError();
 				} else {
 					formElement.showError();
-					error = true;
+					success = false;
 				}
-			}
+			// }
 		}
-		return error;
+		return success;
 	}
 
 	sendForm : function (e) {
@@ -143,23 +147,20 @@ class CreateFormHelperView extends MasterHelperView {
 		
 		this.filteredAll();
 
-		if (!this.validatedAll(params)) {
-			if (form.getParamNameRoute && typeof form.getParamNameRoute == 'function') {
-				var paramsRoute = {};
-				paramsRoute[form.getParamNameRoute()] = entity.getId();
-				var url = router.build(form.getUrl(), paramsRoute);
-			} else {
-				var url = router.build(form.getUrl());
-
-			}
+		if (this.validatedAll(params)) {
 			if (this.isMounted())
 				this.setState({ loader : true });
 
 			var form = this._template.getForm();
 			var segment = form.getTypeForm() != 'search' ? form.getTypeForm() : '';
+			var route = router.entityRouteForApi(this.state['entity'], segment);
 
+			if (segment == 'create')
+				route = router.buildPartialForApi();
+
+			// this.disabledLoader();
 			store.request(
-				router.entityRouteForApi(this.state['entity'], segment),
+				route,
 				params,
 				this.disabledLoader.bind(this)
 			);

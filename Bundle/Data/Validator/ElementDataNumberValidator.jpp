@@ -3,12 +3,22 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-08-08 11:12:48
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-27 15:24:51
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:09:56
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-27 15:26:27
 **************************************************************/
 
-@import "view/all";
-@import "form/all";
+class ElementDataNumberValidator extends MasterValidator {
+
+	public isValid : function (value) {
+		var reg = new RegExp('^[0-9]+$');
+
+		if (reg.test(value))
+			return true;
+		this.setMessage('form.validator.not_number_format');
+		return false;
+	}
+
+}

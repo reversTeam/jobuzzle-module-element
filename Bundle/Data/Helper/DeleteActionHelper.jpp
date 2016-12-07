@@ -3,16 +3,16 @@
 *     ####         #                               #          *
 *       ##  #####  ######  #     # ####### ####### #  #####   * @Author: revers
 *       ## #     # #     # #     #      #       #  # #     #  *
-*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-13 12:16:47
+*       ## #     # #     # #     #     #       #   # #     #  * @Date:   2015-11-21 13:29:37
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 12:46:51
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:29:52
 **************************************************************/
 
-class EditActionHelper extends MasterHelper {
+class DeleteActionHelper extends MasterHelper {
 
-	_viewClassName = 'EditActionHelperView';
+	_viewClassName = 'DeleteActionHelperView';
 	_hasLoader = false;
 
 	initialize : function () {

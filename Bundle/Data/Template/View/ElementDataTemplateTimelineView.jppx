@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-10-04 01:54:34
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 13:27:26
 **************************************************************/
 
 class ElementDataTemplateTimelineView extends ContentView {
@@ -43,10 +43,28 @@ class ElementDataTemplateTimelineView extends ContentView {
 		return router.entityRoute(entity);
 	}
 
+	public displayActions : function () {
+		return <div className="actions">
+			{this.getHelper('EditAction', { entity : this.state['entity'], iconType : 'icon' })}
+			{this.getHelper('DeleteAction', { entity : this.state['entity'], iconType : 'icon' })}
+		</div>;
+	}
+
+	public getClassElement : function () {
+		return ['timeline', 'element'];
+	}
+
 	public display : function () {
-		return (
-			<div>{this.state.entity.getId() +' : '+ this.state.entity.getType()}</div>
-		);
+		var classElement = this.getClassElement().join(' ');
+
+		return <div className={classElement}>
+			{this.displayActions()}
+			{this.displayContent()}
+		</div>;
+	}
+
+	public displayContent : function () {
+		return this.state.entity.getId() +' : '+ this.state.entity.getType();
 	}
 
 }

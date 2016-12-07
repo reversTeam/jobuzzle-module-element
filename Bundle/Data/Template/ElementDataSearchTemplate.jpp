@@ -7,7 +7,7 @@
 *       ## #     # #     # #     #    #       #    # #     #  *
 *       ## #     # #     # #     #   #       #     # ######   * @Last Modified by:   revers
 *  ####### #     # #     # #     #  #       #      # #        *
-*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-10 16:16:46
+*  ######   #####   ######  #####  ####### ####### # #######  * @Last Modified time: 2015-11-21 16:12:09
 **************************************************************/
 
 class ElementDataSearchTemplate extends FormTemplate {
@@ -52,6 +52,8 @@ class ElementDataSearchTemplate extends FormTemplate {
 		dispatcher.listen('Store:'+ this.getType() +':create', this, this.create.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':update', this, this.update.bind(this));
 		dispatcher.listen('Store:'+ this.getType() +':remove', this, this.update.bind(this));
+		// dispatcher.listen('Navigation:Scroll:Bottom>70', this, this.getNext.bind(this));
+		// dispatcher.listen('Navigation:Scroll:Bottom>80', this, this.getNext.bind(this));
 		dispatcher.listen('Navigation:Scroll:Bottom>90', this, this.getNext.bind(this));
 		dispatcher.listen('Navigation:change:height', this, this.calcOffset.bind(this));
 		if (this._resizable)
@@ -200,6 +202,7 @@ class ElementDataSearchTemplate extends FormTemplate {
 			var route = router.entityRouteForApi(parentEntity, this.getRoute());
 		else
 			var route = router.build('/'+ this.getRoute());
+		// console.debug('GET NEXT');
 		store.request(route, params, function (data) {
 			paginator['end'] = !data.result.length;
 			self.setLoaderState(false);
